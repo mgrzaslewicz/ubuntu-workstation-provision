@@ -1,0 +1,9 @@
+---
+- name: Install JDK tools
+  hosts: all
+  tasks:
+    - name: Install visualvm
+      become: true
+      apt:
+        state: present
+        name: visualvm

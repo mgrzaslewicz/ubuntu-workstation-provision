@@ -1,0 +1,15 @@
+---
+- name: Install mvn
+  hosts: all
+  tasks:
+    - name: Make sure ~/bin is present
+      file:
+        path: "~/bin"
+        state: directory
+        mode: 0700
+    - name: Download mvnvm
+      get_url:
+        url: https://bitbucket.org/mjensen/mvnvm/raw/master/mvn
+        dest: ~/bin/mvn
+        mode: 0700
+        timeout: 30

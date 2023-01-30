@@ -1,0 +1,14 @@
+---
+- name: Setup mvn in zsh
+  hosts: all
+  tasks:
+    - name: Make sure java.zsh is present
+      file:
+        path: "~/.oh-my-zsh/custom/java.zsh"
+        state: touch
+        mode: 0700
+    - name: Ensure jenv is added to PATH in zsh
+      lineinfile:
+        path: "~/.oh-my-zsh/custom/java.zsh"
+        state: present
+        line: 'export PATH="$HOME/bin"'

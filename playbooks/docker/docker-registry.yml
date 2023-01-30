@@ -1,0 +1,11 @@
+---
+- name: Install docker registry
+  hosts: all
+  tasks:
+    - name: Start docker registry
+      become: true
+      docker_container:
+        name: registry
+        image: registry:2
+        state: started
+        restart_policy: unless-stopped

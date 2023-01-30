@@ -1,0 +1,16 @@
+---
+- name: Install JDK
+  hosts: all
+  tasks:
+    - name: Install multiple JDKs
+      become: true
+      apt:
+        state: present
+        name: '{{ item }}'
+      loop:
+        - openjdk-8-jdk
+        - openjdk-8-source
+        - openjdk-11-jdk
+        - openjdk-11-source
+        - openjdk-17-jdk
+        - openjdk-17-source

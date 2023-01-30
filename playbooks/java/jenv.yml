@@ -1,0 +1,39 @@
+---
+- name: Install jenv
+  hosts: all
+  tasks:
+    - name: Clone jenv repository
+      git:
+        repo: https://github.com/jenv/jenv.git
+        dest: ~/.jenv
+        update: yes
+    - name: Make sure .bashrc exists
+      file:
+        path: ~/.bashrc
+        state: touch
+    - name: Make jenv present in PATH in new bash sessions
+      lineinfile:
+        dest: ~/.bashrc
+        line: 'export PATH="$HOME/.jenv/bin:$PATH"'
+        state: present
+    - name: Set jenv to be loaded in new bash sessions
+      lineinfile:
+        dest: ~/.bashrc
+        line: eval "$(jenv init -)"
+        state: present
+    - name: Register JDKs in jenv
+      shell: eval "$(jenv init -)" && jenv add {{ item }}
+      environment:
+        PATH: "{{ ansible_env.PATH }}:~/.jenv/bin"
+      args:
+        executable: /bin/bash
+      loop:
+        - /usr/lib/jvm/java-1.8.0-openjdk-amd64
+        - /usr/lib/jvm/java-1.11.0-openjdk-amd64
+        - /usr/lib/jvm/java-1.17.0-openjdk-amd64
+    - name: Enable jenv export plugin
+      shell: eval "$(jenv init -)" && jenv enable-plugin export
+      environment:
+        PATH: "{{ ansible_env.PATH }}:~/.jenv/bin"
+      args:
+        executable: /bin/bash

@@ -1,0 +1,43 @@
+---
+- name: Upgrade ubuntu
+  hosts: all
+  tasks:
+    - name: Log reason for upgrade ubuntu
+      debug:
+        msg: "To have apt install openjdk working"
+    - name: Upgrade ubuntu
+      become: true
+      apt:
+        upgrade: dist
+        update_cache: yes
+
+- import_playbook: zsh/zsh.yml
+- import_playbook: zsh/oh-my-zsh.yml
+- import_playbook: zsh/powerlevel10k.yml
+
+- import_playbook: java/jdk.yml
+- import_playbook: java/jdk-tools.yml
+- import_playbook: java/jenv.yml
+- import_playbook: java/jenv-zsh.yml
+- import_playbook: java/mvnvm.yml
+- import_playbook: java/mvnvm-zsh.yml
+
+- import_playbook: docker/docker.yml
+- import_playbook: docker/python-docker.yml
+- import_playbook: docker/docker-registry.yml
+
+- import_playbook: git/git.yml
+- import_playbook: git/git-global-config.yml
+
+- import_playbook: javascript/nvm.yml
+- import_playbook: javascript/nvm-zsh.yml
+
+- import_playbook: install-packages.yml
+
+# TODO
+# https://github.com/jesseduffield/lazygit#installation
+# https://github.com/Canop/broot
+# https://github.com/tldr-pages/tldr
+# https://github.com/cheat/cheat
+# https://github.com/dandavison/delta
+# https://github.com/sachaos/viddy

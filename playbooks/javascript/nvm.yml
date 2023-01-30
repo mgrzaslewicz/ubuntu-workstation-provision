@@ -1,0 +1,12 @@
+---
+- name: Install nvm
+  hosts: all
+  tasks:
+    - name: Download nvm install script
+      get_url:
+        url: https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh
+        dest: /tmp/nvm.sh
+        mode: 0700
+        timeout: 30
+    - name: Install nvm
+      shell: bash /tmp/nvm.sh

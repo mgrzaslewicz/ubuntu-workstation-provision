@@ -1,0 +1,18 @@
+---
+- name: Install nvm
+  hosts: all
+  tasks:
+    - name: Make sure nvm.zsh is present
+      file:
+        path: "~/.oh-my-zsh/custom/nvm.zsh"
+        state: touch
+        mode: 0700
+    - name: Add nvm variables to zshrc
+      lineinfile:
+        path: "~/.oh-my-zsh/custom/nvm.zsh"
+        state: present
+        line: '{{ item }}'
+      loop:
+        - 'export NVM_DIR="$HOME/.nvm"'
+        - '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm'
+        - '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion'

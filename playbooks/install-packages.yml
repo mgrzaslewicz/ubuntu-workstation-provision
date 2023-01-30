@@ -1,0 +1,37 @@
+---
+- name: Install apt and snap packages
+  hosts: all
+  tasks:
+    - name: Install apt packages
+      become: true
+      apt:
+        state: present
+        name: '{{ item }}'
+      loop:
+        - firefox
+        - flameshot
+        - gimp
+        - graphviz # needed for intellij plugin plantUML
+        - nmap
+        - oathtool # 2FA code, e.g. oathtool -b --totp 'secret code' | xclip -sel clip
+        - paprefs # to have virtual device capable of streaming via multiple physical devices
+        - snap
+        - tmux
+        - tmuxinator
+        - unrar
+        - unzip
+        - wine
+        - xclip
+        - yarn
+
+    - name: Install snap packages
+      become: true
+      community.general.snap:
+        name: '{{ item }}'
+        channel: latest/edge
+      loop:
+        - postman
+        - authy
+        - yq
+        - foobar2000
+        - spotify

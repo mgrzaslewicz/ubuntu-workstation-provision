@@ -1,0 +1,9 @@
+---
+- name: Install docker
+  hosts: all
+  tasks:
+    - name: Install docker
+      become: true
+      apt:
+        state: present
+        name: docker.io
