@@ -38,6 +38,8 @@
 - import_playbook: install-packages.yml
 
 - import_playbook: various/broot.yml
+- import_playbook: various/mcfly.yml
+- import_playbook: various/mcfly-zsh.yml
 
 # TODO
 # https://github.com/jesseduffield/lazygit#installation
@@ -45,4 +47,3 @@
 # https://github.com/tldr-pages/tldr
 # https://github.com/dandavison/delta
 # https://github.com/sachaos/viddy
-# https://github.com/cantino/mcfly

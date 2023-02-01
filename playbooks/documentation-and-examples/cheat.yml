@@ -2,7 +2,7 @@
 - name: Install cheat
   hosts: all
   tasks:
-    - name: Download cheat install script
+    - name: Download cheat
       get_url:
         url: https://github.com/cheat/cheat/releases/download/4.4.0/cheat-linux-amd64.gz
         dest: /tmp/cheat.gz

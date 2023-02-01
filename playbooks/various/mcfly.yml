@@ -1,0 +1,15 @@
+---
+- name: Install mcfly for searching shell history
+  hosts: all
+  tasks:
+    - name: Download mcfly install script
+      get_url:
+        url: https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh
+        dest: /tmp/mcfly-install.sh
+        mode: 0700
+        timeout: 30
+    - name: Install mcfly to default /usr/local/bin
+      shell: /tmp/mcfly-install.sh --force --git cantino/mcfly
+      become: true
+      args:
+        executable: /bin/sh
