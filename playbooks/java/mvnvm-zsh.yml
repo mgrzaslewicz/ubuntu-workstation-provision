@@ -11,4 +11,4 @@
       lineinfile:
         path: "~/.oh-my-zsh/custom/java.zsh"
         state: present
-        line: 'export PATH="$HOME/bin"'
+        line: 'export PATH="$HOME/bin:$PATH"'
