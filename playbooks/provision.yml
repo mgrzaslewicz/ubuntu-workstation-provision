@@ -37,9 +37,11 @@
 
 - import_playbook: install-packages.yml
 
+- import_playbook: various/broot.yml
+
 # TODO
 # https://github.com/jesseduffield/lazygit#installation
-# https://github.com/Canop/broot
+# https://github.com/jesseduffield/lazydocker#installation
 # https://github.com/tldr-pages/tldr
 # https://github.com/dandavison/delta
 # https://github.com/sachaos/viddy

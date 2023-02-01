@@ -1,0 +1,13 @@
+---
+- name: Install broot
+  hosts: all
+  tasks:
+    - name: Download broot
+      get_url:
+        url: https://dystroy.org/broot/download/x86_64-linux/broot
+        dest: /tmp/broot
+        mode: 0700
+        timeout: 30
+    - name: Move broot to /usr/local/bin
+      become: true
+      shell: mv /tmp/broot /usr/local/bin/broot
