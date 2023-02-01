@@ -1,0 +1,16 @@
+---
+- name: Install cheat
+  hosts: all
+  tasks:
+    - name: Download cheat install script
+      get_url:
+        url: https://github.com/cheat/cheat/releases/download/4.4.0/cheat-linux-amd64.gz
+        dest: /tmp/cheat.gz
+        timeout: 30
+    - name: Unzip cheat
+      shell: gunzip /tmp/cheat.gz
+    - name: Make cheat executable
+      shell: chmod +x /tmp/cheat
+    - name: Move cheat to /usr/local/bin
+      become: true
+      shell: mv /tmp/cheat /usr/local/bin/cheat
