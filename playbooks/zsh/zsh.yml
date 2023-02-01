@@ -8,7 +8,6 @@
         state: present
         name: zsh
     - name: Make zsh default shell
-      become: true
       shell: USER=$(whoami) sudo chsh -s $(which zsh) $USER
       args:
         executable: /bin/bash
