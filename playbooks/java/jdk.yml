@@ -14,3 +14,5 @@
         - openjdk-11-source
         - openjdk-17-jdk
         - openjdk-17-source
+        - openjdk-19-jdk
+        - openjdk-19-source
