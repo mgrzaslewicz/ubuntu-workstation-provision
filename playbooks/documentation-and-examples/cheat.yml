@@ -9,14 +9,16 @@
       register: cheat_latest_version_metadata
     - name: Parse latest version tag
       set_fact:
-          cheat_latest_version: "{{ cheat_latest_version_metadata.json.tag_name }}"
+        cheat_latest_version: "{{ cheat_latest_version_metadata.json.tag_name }}"
     - name: Download cheat
       get_url:
         url: "https://github.com/cheat/cheat/releases/download/{{ cheat_latest_version }}/cheat-linux-amd64.gz"
         dest: /tmp/cheat.gz
         timeout: 30
     - name: Unpack cheat
-      shell: gunzip /tmp/cheat.gz
+      shell:
+        cmd: gunzip /tmp/cheat.gz
+        chdir: /tmp
     - name: Make cheat executable
       file:
         path: /tmp/cheat

@@ -9,17 +9,19 @@
       register: viddy_latest_version_metadata
     - name: Parse latest version tag
       set_fact:
-          viddy_latest_version: "{{ viddy_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
+        viddy_latest_version: "{{ viddy_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
     - name: Download viddy
       get_url:
-          url: "https://github.com/sachaos/viddy/releases/latest/download/viddy_{{ viddy_latest_version }}_Linux_x86_64.tar.gz"
-          dest: /tmp/viddy.tar.gz
+        url: "https://github.com/sachaos/viddy/releases/latest/download/viddy_{{ viddy_latest_version }}_Linux_x86_64.tar.gz"
+        dest: /tmp/viddy.tar.gz
     - name: Unpack viddy
-      shell: tar xf /tmp/viddy.tar.gz viddy
+      shell:
+        cmd: tar xf /tmp/viddy.tar.gz
+        chdir: /tmp
     - name: Make viddy executable
       file:
-          path: /tmp/viddy
-          mode: 0700
+        path: /tmp/viddy
+        mode: 0700
     - name: Move viddy to /usr/local/bin
       become: true
-      shell: mv viddy /usr/local/bin/viddy
+      shell: mv /tmp/viddy /usr/local/bin/viddy
