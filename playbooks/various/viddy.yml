@@ -16,9 +16,10 @@
           dest: /tmp/viddy.tar.gz
     - name: Unpack viddy
       shell: tar xf /tmp/viddy.tar.gz viddy
+    - name: Make viddy executable
+      file:
+          path: /tmp/viddy
+          mode: 0700
     - name: Move viddy to /usr/local/bin
       become: true
       shell: mv viddy /usr/local/bin/viddy
-    - name: Make viddy executable
-      become: true
-      shell: chmod +x /usr/local/bin/viddy

@@ -18,7 +18,9 @@
     - name: Unpack cheat
       shell: gunzip /tmp/cheat.gz
     - name: Make cheat executable
-      shell: chmod +x /tmp/cheat
+      file:
+        path: /tmp/cheat
+        mode: 0700
     - name: Move cheat to /usr/local/bin
       become: true
       shell: mv /tmp/cheat /usr/local/bin/cheat

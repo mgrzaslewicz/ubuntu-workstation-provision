@@ -16,9 +16,10 @@
         dest: /tmp/lazygit.tar.gz
     - name: Unpack lazygit
       shell: tar xf /tmp/lazygit.tar.gz lazygit
+    - name: Make lazygit executable
+      file:
+        path: /tmp/lazygit
+        mode: 0700
     - name: Move lazygit to /usr/local/bin
       become: true
       shell: mv lazygit /usr/local/bin/lazygit
-    - name: Make lazygit executable
-      become: true
-      shell: chmod +x /usr/local/bin/lazygit
