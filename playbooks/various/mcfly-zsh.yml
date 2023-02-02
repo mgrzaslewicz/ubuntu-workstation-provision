@@ -12,6 +12,7 @@
         path: "~/.oh-my-zsh/custom/mcfly.zsh"
         state: present
         line: '{{ item }}'
+
       loop:
         - 'export MCFLY_KEY_SCHEME=vim'
         - 'eval "$(mcfly init zsh)"'

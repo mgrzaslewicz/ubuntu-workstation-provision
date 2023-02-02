@@ -31,6 +31,7 @@
 
 - import_playbook: git/git.yml
 - import_playbook: git/git-global-config.yml
+- import_playbook: git/lazygit.yml
 
 - import_playbook: javascript/nvm.yml
 - import_playbook: javascript/nvm-zsh.yml
@@ -42,7 +43,6 @@
 - import_playbook: various/mcfly-zsh.yml
 
 # TODO
-# https://github.com/jesseduffield/lazygit#installation
 # https://github.com/jesseduffield/lazydocker#installation
 # https://github.com/tldr-pages/tldr
 # https://github.com/dandavison/delta

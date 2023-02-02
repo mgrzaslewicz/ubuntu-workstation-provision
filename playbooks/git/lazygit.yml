@@ -1,0 +1,28 @@
+---
+- name: Install lazygit
+  hosts: all
+  #LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+  #curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+  #tar xf lazygit.tar.gz lazygit
+  #sudo install lazygit /usr/local/bin
+  tasks:
+    - name: Download latest release metadata
+      uri:
+        url: https://api.github.com/repos/jesseduffield/lazygit/releases/latest
+        return_content: yes
+      register: lazygit_latest_version_tag
+    - name: Parse latest version tag
+      set_fact:
+        lazygit_latest_version: "{{ lazygit_latest_version_tag.json.tag_name | regex_replace('^v', '') }}"
+    - name: Download lazygit
+      get_url:
+        url: "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_{{ lazygit_latest_version }}_Linux_x86_64.tar.gz"
+        dest: /tmp/lazygit.tar.gz
+    - name: Unpack lazygit
+      shell: tar xf /tmp/lazygit.tar.gz lazygit
+    - name: Move lazygit to /usr/local/bin
+      become: true
+      shell: mv lazygit /usr/local/bin/lazygit
+    - name: Make lazygit executable
+      become: true
+      shell: chmod +x /usr/local/bin/lazygit
