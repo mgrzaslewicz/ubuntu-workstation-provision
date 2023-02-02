@@ -2,12 +2,20 @@
 - name: Install cheat
   hosts: all
   tasks:
+    - name: Download latest release metadata
+      uri:
+        url: https://api.github.com/repos/cheat/cheat/releases/latest
+        return_content: yes
+      register: cheat_latest_version_metadata
+    - name: Parse latest version tag
+      set_fact:
+          cheat_latest_version: "{{ cheat_latest_version_metadata.json.tag_name }}"
     - name: Download cheat
       get_url:
-        url: https://github.com/cheat/cheat/releases/download/4.4.0/cheat-linux-amd64.gz
+        url: "https://github.com/cheat/cheat/releases/download/{{ cheat_latest_version }}/cheat-linux-amd64.gz"
         dest: /tmp/cheat.gz
         timeout: 30
-    - name: Unzip cheat
+    - name: Unpack cheat
       shell: gunzip /tmp/cheat.gz
     - name: Make cheat executable
       shell: chmod +x /tmp/cheat

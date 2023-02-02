@@ -6,10 +6,10 @@
       uri:
         url: https://api.github.com/repos/sachaos/viddy/releases/latest
         return_content: yes
-      register: viddy_latest_version_tag
+      register: viddy_latest_version_metadata
     - name: Parse latest version tag
       set_fact:
-          viddy_latest_version: "{{ viddy_latest_version_tag.json.tag_name | regex_replace('^v', '') }}"
+          viddy_latest_version: "{{ viddy_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
     - name: Download viddy
       get_url:
           url: "https://github.com/sachaos/viddy/releases/latest/download/viddy_{{ viddy_latest_version }}_Linux_x86_64.tar.gz"
