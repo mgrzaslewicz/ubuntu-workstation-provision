@@ -15,9 +15,10 @@
         url: "https://github.com/sachaos/viddy/releases/latest/download/viddy_{{ viddy_latest_version }}_Linux_x86_64.tar.gz"
         dest: /tmp/viddy.tar.gz
     - name: Unpack viddy
-      shell:
-        cmd: tar xf /tmp/viddy.tar.gz
-        chdir: /tmp
+      unarchive:
+        src: /tmp/viddy.tar.gz
+        dest: /tmp
+        remote_src: yes
     - name: Make viddy executable
       file:
         path: /tmp/viddy
