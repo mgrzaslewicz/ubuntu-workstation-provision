@@ -1,0 +1,24 @@
+---
+- name: Install viddy
+  hosts: all
+  tasks:
+    - name: Download latest release metadata
+      uri:
+        url: https://api.github.com/repos/sachaos/viddy/releases/latest
+        return_content: yes
+      register: viddy_latest_version_tag
+    - name: Parse latest version tag
+      set_fact:
+          viddy_latest_version: "{{ viddy_latest_version_tag.json.tag_name | regex_replace('^v', '') }}"
+    - name: Download viddy
+      get_url:
+          url: "https://github.com/sachaos/viddy/releases/latest/download/viddy_{{ viddy_latest_version }}_Linux_x86_64.tar.gz"
+          dest: /tmp/viddy.tar.gz
+    - name: Unpack viddy
+      shell: tar xf /tmp/viddy.tar.gz viddy
+    - name: Move viddy to /usr/local/bin
+      become: true
+      shell: mv viddy /usr/local/bin/viddy
+    - name: Make viddy executable
+      become: true
+      shell: chmod +x /usr/local/bin/viddy

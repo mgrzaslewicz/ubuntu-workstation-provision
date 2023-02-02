@@ -42,8 +42,8 @@
 - import_playbook: various/broot.yml
 - import_playbook: various/mcfly.yml
 - import_playbook: various/mcfly-zsh.yml
+- import_playbook: various/viddy.yml
 
 # TODO
 # https://github.com/tldr-pages/tldr
 # https://github.com/dandavison/delta
-# https://github.com/sachaos/viddy
