@@ -18,6 +18,8 @@
 - import_playbook: zsh/oh-my-zsh.yml
 - import_playbook: zsh/powerlevel10k.yml
 
+- import_playbook: dotfiles/home-dir-as-git-repository.yml
+
 - import_playbook: java/jdk.yml
 - import_playbook: java/jdk-tools.yml
 - import_playbook: java/jenv.yml
@@ -45,5 +47,12 @@
 - import_playbook: various/viddy.yml
 
 # TODO
+# dotfiles
+## More tools
 # https://github.com/tldr-pages/tldr
 # https://github.com/dandavison/delta
+
+# Consider other tools from https://github.com/ibraheemdev/modern-unix
+# https://github.com/burntsushi/ripgrep
+# https://github.com/sharkdp/bat
+# https://github.com/Peltoche/lsd
