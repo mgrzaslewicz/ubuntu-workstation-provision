@@ -14,7 +14,3 @@
       shell: bash /tmp/install-mg-dotfiles.sh
       args:
           executable: /bin/sh
-    - name: Remove dotfiles install script
-      file:
-        path: /tmp/install-mg-dotfiles.sh
-        state: absent
