@@ -1,0 +1,21 @@
+---
+- name: Install 'lsd', a better 'ls'
+  hosts: all
+  tasks:
+    - name: Download latest release metadata
+      uri:
+        url: https://api.github.com/repos/Peltoche/lsd/releases/latest
+        return_content: yes
+      register: lsd_latest_version_metadata
+    - name: Parse latest version tag
+      set_fact:
+        lsd_latest_version: "{{ lsd_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
+    - name: Download lsd
+      get_url:
+        url: "https://github.com/Peltoche/lsd/releases/download/{{ lsd_latest_version }}/lsd-musl_{{ lsd_latest_version }}_amd64.deb"
+        dest: "/tmp/lsd-musl_{{ lsd_latest_version }}_amd64.deb"
+    - name: Install lsd
+      become: true
+      apt:
+        deb: "/tmp/lsd-musl_{{ lsd_latest_version }}_amd64.deb"
+        state: present
