@@ -7,7 +7,7 @@
         path: "~/.oh-my-zsh/custom/nvm.zsh"
         state: touch
         mode: 0700
-    - name: Add nvm variables to zshrc
+    - name: Add nvm variables to zsh
       lineinfile:
         path: "~/.oh-my-zsh/custom/nvm.zsh"
         state: present
