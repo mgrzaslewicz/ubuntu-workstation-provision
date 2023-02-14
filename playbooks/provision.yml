@@ -18,8 +18,6 @@
 - import_playbook: zsh/oh-my-zsh.yml
 - import_playbook: zsh/powerlevel10k.yml
 
-- import_playbook: dotfiles/home-dir-as-git-repository.yml
-
 - import_playbook: java/jdk.yml
 - import_playbook: java/jdk-tools.yml
 - import_playbook: java/jenv.yml
@@ -46,6 +44,11 @@
 - import_playbook: various/mcfly.yml
 - import_playbook: various/mcfly-zsh.yml
 - import_playbook: various/viddy.yml
+
+- import_playbook: dotfiles/home-dir-as-git-repository.yml
+
+- import_playbook: vim/vim-plug.yml
+
 
 # TODO
 # dotfiles
