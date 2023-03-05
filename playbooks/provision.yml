@@ -2,9 +2,6 @@
 - name: Upgrade ubuntu
   hosts: all
   tasks:
-    - name: Log reason for upgrade ubuntu
-      debug:
-        msg: "To have apt install openjdk working"
     - name: Upgrade ubuntu
       become: true
       apt:
