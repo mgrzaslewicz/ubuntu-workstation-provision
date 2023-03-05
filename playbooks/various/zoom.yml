@@ -8,6 +8,10 @@
         dest: /tmp/zoom_amd64.deb
         mode: 0700
         timeout: 30
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
     - name: Install zoom
       become: true
       apt:

@@ -7,6 +7,9 @@
         url: https://api.github.com/repos/cheat/cheat/releases/latest
         return_content: yes
       register: cheat_latest_version_metadata
+      until: cheat_latest_version_metadata is success
+      retries: 3
+      delay: 5
     - name: Parse latest version tag
       set_fact:
         cheat_latest_version: "{{ cheat_latest_version_metadata.json.tag_name }}"
@@ -15,6 +18,10 @@
         url: "https://github.com/cheat/cheat/releases/download/{{ cheat_latest_version }}/cheat-linux-amd64.gz"
         dest: /tmp/cheat.gz
         timeout: 30
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
     - name: Unpack cheat
       shell:
         cmd: gunzip /tmp/cheat.gz

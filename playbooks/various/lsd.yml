@@ -7,6 +7,9 @@
         url: https://api.github.com/repos/Peltoche/lsd/releases/latest
         return_content: yes
       register: lsd_latest_version_metadata
+      until: lsd_latest_version_metadata is success
+      retries: 3
+      delay: 5
     - name: Parse latest version tag
       set_fact:
         lsd_latest_version: "{{ lsd_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
@@ -14,6 +17,10 @@
       get_url:
         url: "https://github.com/Peltoche/lsd/releases/download/{{ lsd_latest_version }}/lsd-musl_{{ lsd_latest_version }}_amd64.deb"
         dest: "/tmp/lsd-musl_{{ lsd_latest_version }}_amd64.deb"
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
     - name: Install lsd
       become: true
       apt:

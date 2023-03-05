@@ -13,3 +13,7 @@
         dest: ~/bin/mvn
         mode: 0700
         timeout: 30
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5

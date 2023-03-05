@@ -7,6 +7,9 @@
         url: https://api.github.com/repos/jesseduffield/lazygit/releases/latest
         return_content: yes
       register: lazygit_latest_version_metadata
+      until: download is success
+      retries: 3
+      delay: 5
     - name: Parse latest version tag
       set_fact:
         lazygit_latest_version: "{{ lazygit_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
@@ -14,6 +17,10 @@
       get_url:
         url: "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_{{ lazygit_latest_version }}_Linux_x86_64.tar.gz"
         dest: /tmp/lazygit.tar.gz
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
     - name: Unpack lazygit
       unarchive:
         src: /tmp/lazygit.tar.gz

@@ -8,6 +8,10 @@
         dest: /tmp/mcfly-install.sh
         mode: 0700
         timeout: 30
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
     - name: Install mcfly to default /usr/local/bin
       shell: /tmp/mcfly-install.sh --force --git cantino/mcfly
       become: true

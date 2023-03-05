@@ -8,6 +8,10 @@
         dest: /tmp/broot
         mode: 0700
         timeout: 30
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
     - name: Move broot to /usr/local/bin
       become: true
       shell: mv /tmp/broot /usr/local/bin/broot

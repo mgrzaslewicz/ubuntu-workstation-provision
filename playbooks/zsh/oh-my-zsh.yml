@@ -8,6 +8,10 @@
         dest: '/tmp/oh-my-zsh-install.sh'
         mode: 0700
         timeout: 30
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
     - name: Check if oh-my-zsh is already installed
       stat:
         path: "~/.oh-my-zsh"
