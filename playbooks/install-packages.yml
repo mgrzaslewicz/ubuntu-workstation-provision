@@ -32,12 +32,14 @@
     - name: Install snap packages
       become: true
       community.general.snap:
-        name: '{{ item }}'
+        name: '{{ item.package }}'
         channel: latest/edge
+        classic: '{{ item.classic }}'
       loop:
-        - postman
-        - authy
-        - yq
-        - foobar2000
-        - spotify
-        - signal-desktop
+        - { package: postman, classic: false }
+        - { package: authy, classic: false }
+        - { package: yq, classic: false }
+        - { package: foobar2000, classic: false }
+        - { package: spotify, classic: false }
+        - { package: signal-desktop, classic: false }
+        - { package: sublime-text, classic: true }
