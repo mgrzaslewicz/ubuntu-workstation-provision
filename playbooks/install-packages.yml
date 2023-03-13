@@ -43,3 +43,4 @@
         - { package: spotify, classic: false }
         - { package: signal-desktop, classic: false }
         - { package: sublime-text, classic: true }
+        - { package: intellij-idea-ultimate, classic: true }
