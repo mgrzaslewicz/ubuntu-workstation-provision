@@ -1,14 +1,5 @@
 ---
-- name: Upgrade ubuntu
-  hosts: all
-  tasks:
-    - name: Upgrade ubuntu
-      become: true
-      apt:
-        upgrade: dist
-        autoclean: yes
-        update_cache: yes
-
+- import_playbook: upgrade-system.yml
 - import_playbook: documentation-and-examples/cheat.yml
 
 - import_playbook: zsh/zsh.yml
@@ -49,7 +40,6 @@
 
 
 # TODO
-# dotfiles
 ## More tools
 # https://github.com/tldr-pages/tldr
 # https://github.com/dandavison/delta

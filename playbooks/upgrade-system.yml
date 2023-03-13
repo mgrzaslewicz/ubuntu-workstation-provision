@@ -1,0 +1,10 @@
+---
+- name: Upgrade ubuntu
+  hosts: all
+  tasks:
+    - name: Upgrade ubuntu
+      become: true
+      apt:
+        upgrade: dist
+        autoclean: yes
+        update_cache: yes
