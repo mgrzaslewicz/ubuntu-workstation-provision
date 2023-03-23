@@ -1,0 +1,29 @@
+---
+- name: Install delta, a tool to view git diff with syntax highlighting
+  hosts: all
+  tasks:
+    - name: Download latest release metadata
+      uri:
+        url: https://api.github.com/repos/dandavison/delta/releases/latest
+        return_content: yes
+      register: latest_version_metadata
+      until: latest_version_metadata is success
+      retries: 3
+      delay: 5
+    - name: Parse latest version tag
+      set_fact:
+        latest_version: "{{ latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
+    - name: Download delta
+      get_url:
+        url: "https://github.com/dandavison/delta/releases/latest/download/git-delta_{{ latest_version }}_amd64.deb"
+        dest: /tmp/delta.deb
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
+    - name: Install delta
+      become: true
+      apt:
+        deb: /tmp/delta.deb
+        state: present
+        update_cache: true
