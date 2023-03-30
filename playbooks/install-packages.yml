@@ -12,6 +12,7 @@
         - flameshot
         - gimp
         - graphviz # needed for intellij plugin plantUML
+        - mc
         - nmap
         - oathtool # 2FA code, e.g. oathtool -b --totp 'secret code' | xclip -sel clip
         - paprefs # to have virtual device capable of streaming via multiple physical devices
