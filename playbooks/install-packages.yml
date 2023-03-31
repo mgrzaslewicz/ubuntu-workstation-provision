@@ -12,6 +12,7 @@
         - flameshot
         - gimp
         - graphviz # needed for intellij plugin plantUML
+        - kwin-bismuth # tiling window management script for kde
         - mc
         - nmap
         - oathtool # 2FA code, e.g. oathtool -b --totp 'secret code' | xclip -sel clip
