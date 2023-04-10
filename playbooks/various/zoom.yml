@@ -19,8 +19,14 @@
     - name: Compare installed zoom version with latest version
       set_fact:
         zoom_version_changed: "{{ extracted_zoom_version != installed_zoom_version.stdout }}"
+    - name: Log if no new version is available
+      debug:
+        msg: "Zoom is already installed in version {{ extracted_zoom_version }}"
+      when: not zoom_version_changed
+    - name: Exit play when no new version is available
+      when: not zoom_version_changed
+      meta: end_play
     - name: Download zoom deb package if new version is available
-      when: zoom_version_changed
       get_url:
         url: https://zoom.us/client/latest/zoom_amd64.deb
         dest: /tmp/zoom_amd64.deb
@@ -31,7 +37,6 @@
       retries: 3
       delay: 5
     - name: Install zoom
-      when: zoom_version_changed
       become: true
       apt:
         deb: /tmp/zoom_amd64.deb
