@@ -7,3 +7,14 @@
       apt:
         state: present
         name: docker.io
+    - name: Add docker group
+      become: true
+      group:
+        name: docker
+        state: present
+    - name: Add current user to docker group
+      become: true
+      user:
+        name: "{{ansible_env.USER}}"
+        groups: docker
+        append: true
