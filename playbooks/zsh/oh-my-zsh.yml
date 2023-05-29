@@ -12,6 +12,7 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Check if oh-my-zsh is already installed
       stat:
         path: "~/.oh-my-zsh"

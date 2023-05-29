@@ -10,6 +10,7 @@
       until: cheat_latest_version_metadata is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Parse latest version tag
       set_fact:
         cheat_latest_version: "{{ cheat_latest_version_metadata.json.tag_name }}"
@@ -22,14 +23,16 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Unpack cheat
       shell:
         cmd: gunzip /tmp/cheat.gz
         chdir: /tmp
-    - name: Make cheat executable
-      file:
-        path: /tmp/cheat
-        mode: 0700
+      changed_when: false
     - name: Move cheat to /usr/local/bin
       become: true
       shell: mv /tmp/cheat /usr/local/bin/cheat
+    - name: Make cheat executable
+      file:
+        path: /usr/local/bin/cheat
+        mode: 0700

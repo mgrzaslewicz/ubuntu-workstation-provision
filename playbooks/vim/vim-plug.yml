@@ -18,6 +18,7 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Install vim plugins
       shell: vim +'PlugInstall --sync' +qall
       args:

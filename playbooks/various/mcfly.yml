@@ -12,6 +12,7 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Install mcfly to default /usr/local/bin
       shell: /tmp/mcfly-install.sh --force --git cantino/mcfly
       become: true

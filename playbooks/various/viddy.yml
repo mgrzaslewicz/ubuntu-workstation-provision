@@ -10,6 +10,7 @@
       until: viddy_latest_version_metadata is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Parse latest version tag
       set_fact:
         viddy_latest_version: "{{ viddy_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
@@ -21,15 +22,16 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Unpack viddy
       unarchive:
         src: /tmp/viddy.tar.gz
         dest: /tmp
         remote_src: yes
-    - name: Make viddy executable
-      file:
-        path: /tmp/viddy
-        mode: 0700
     - name: Move viddy to /usr/local/bin
       become: true
       shell: mv /tmp/viddy /usr/local/bin/viddy
+    - name: Make viddy executable
+      file:
+        path: /usr/local/bin/viddy
+        mode: 0700

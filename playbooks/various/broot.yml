@@ -12,6 +12,7 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Move broot to /usr/local/bin
       become: true
       shell: mv /tmp/broot /usr/local/bin/broot

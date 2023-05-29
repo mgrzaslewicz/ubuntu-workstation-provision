@@ -10,6 +10,7 @@
       until: lsd_latest_version_metadata is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Parse latest version tag
       set_fact:
         lsd_latest_version: "{{ lsd_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
@@ -21,6 +22,7 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Install lsd
       become: true
       apt:

@@ -9,6 +9,7 @@
         headers:
           User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36
       register: latest_zoom_version
+      changed_when: false
     - name: Extract zoom version # 1.2.3 (12345) -> 1.2.3.12345
       set_fact:
         extracted_zoom_version: "{{ latest_zoom_version.content | regex_search('class=\"linux-ver-text\".*Version (\\d+\\.\\d+\\.\\d+) \\(\\d+\\)') | regex_replace('.*Version ', '') | regex_replace(' \\(', '.') | regex_replace('\\)', '') }}"
@@ -36,6 +37,7 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Install zoom
       become: true
       apt:

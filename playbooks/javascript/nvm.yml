@@ -12,5 +12,6 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Install nvm
       shell: bash /tmp/nvm.sh
