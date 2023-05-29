@@ -28,6 +28,7 @@
         src: /tmp/viddy.tar.gz
         dest: /tmp
         remote_src: yes
+      changed_when: false
     - name: Move viddy to /usr/local/bin
       become: true
       shell: mv /tmp/viddy /usr/local/bin/viddy

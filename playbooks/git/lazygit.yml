@@ -26,10 +26,11 @@
         src: /tmp/lazygit.tar.gz
         dest: /tmp
         remote_src: yes
-    - name: Make lazygit executable
-      file:
-        path: /tmp/lazygit
-        mode: 0700
+      changed_when: false
     - name: Move lazygit to /usr/local/bin
       become: true
       shell: mv /tmp/lazygit /usr/local/bin/lazygit
+    - name: Make lazygit executable
+      file:
+        path: /usr/local/bin/lazygit
+        mode: 0700
