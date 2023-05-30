@@ -23,12 +23,30 @@
       retries: 3
       delay: 5
       changed_when: false
+    - name: Remove temp binary if present
+      file:
+        path: /tmp/viddy
+        state: absent
+      changed_when: false
     - name: Unpack viddy
       unarchive:
         src: /tmp/viddy.tar.gz
         dest: /tmp
         remote_src: yes
       changed_when: false
+    - name: Store md5sum of current binary
+      shell:
+        cmd: md5sum /usr/local/bin/viddy | awk '{print $1}'
+      register: current_md5sum
+      changed_when: false
+    - name: Store md5sum of new binary
+      shell:
+        cmd: md5sum /tmp/viddy | awk '{print $1}'
+      register: new_md5sum
+      changed_when: false
+    - name: Exit if no update is available
+      meta: end_play
+      when: current_md5sum.stdout == new_md5sum.stdout
     - name: Move viddy to /usr/local/bin
       become: true
       shell: mv /tmp/viddy /usr/local/bin/viddy

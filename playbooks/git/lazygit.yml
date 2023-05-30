@@ -22,12 +22,30 @@
       retries: 3
       delay: 5
       changed_when: false
+    - name: Remove temp binary if present
+      file:
+        path: /tmp/lazygit
+        state: absent
+      changed_when: false
     - name: Unpack lazygit
       unarchive:
         src: /tmp/lazygit.tar.gz
         dest: /tmp
         remote_src: yes
       changed_when: false
+    - name: Store md5sum of current binary
+      shell:
+        cmd: md5sum /usr/local/bin/lazygit | awk '{print $1}'
+      register: current_md5sum
+      changed_when: false
+    - name: Store md5sum of new binary
+      shell:
+        cmd: md5sum /tmp/lazygit | awk '{print $1}'
+      register: new_md5sum
+      changed_when: false
+    - name: Exit if no update is available
+      meta: end_play
+      when: current_md5sum.stdout == new_md5sum.stdout
     - name: Move lazygit to /usr/local/bin
       become: true
       shell: mv /tmp/lazygit /usr/local/bin/lazygit
