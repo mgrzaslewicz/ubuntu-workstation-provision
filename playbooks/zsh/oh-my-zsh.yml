@@ -26,6 +26,8 @@
         path: "~/.zshrc"
         state: touch
         mode: 0700
+        access_time: preserve
+        modification_time: preserve
     - name: Add oh-my-zsh variables to zshrc
       lineinfile:
         path: "~/.zshrc"

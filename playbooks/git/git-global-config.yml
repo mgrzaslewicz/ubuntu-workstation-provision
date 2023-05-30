@@ -2,11 +2,13 @@
 - name: Configure git
   hosts: all
   tasks:
-    - name: Add git global gitignore file
+    - name: Make sure global gitignore file is present
       file:
         path: ~/.gitignore_global
         state: touch
         mode: 0700
+        access_time: preserve
+        modification_time: preserve
     - name: Fill global .gitignore file
       lineinfile:
         path: ~/.gitignore_global

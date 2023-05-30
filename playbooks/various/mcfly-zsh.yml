@@ -7,6 +7,8 @@
         path: "~/.oh-my-zsh/custom/mcfly.zsh"
         state: touch
         mode: 0700
+        access_time: preserve
+        modification_time: preserve
     - name: Add mcfly init
       lineinfile:
         path: "~/.oh-my-zsh/custom/mcfly.zsh"

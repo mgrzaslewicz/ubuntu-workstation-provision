@@ -7,6 +7,8 @@
         path: "~/.oh-my-zsh/custom/java.zsh"
         state: touch
         mode: 0700
+        access_time: preserve
+        modification_time: preserve
     - name: Ensure jenv is added to PATH in zsh
       lineinfile:
         path: "~/.oh-my-zsh/custom/java.zsh"

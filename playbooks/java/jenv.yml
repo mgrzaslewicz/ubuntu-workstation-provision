@@ -7,10 +7,12 @@
         repo: https://github.com/jenv/jenv.git
         dest: ~/.jenv
         update: yes
-    - name: Make sure .bashrc exists
+    - name: Make sure .bashrc is present
       file:
         path: ~/.bashrc
         state: touch
+        access_time: preserve
+        modification_time: preserve
     - name: Make jenv present in PATH in new bash sessions
       lineinfile:
         dest: ~/.bashrc
