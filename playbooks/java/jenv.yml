@@ -29,6 +29,8 @@
         PATH: "{{ ansible_env.PATH }}:~/.jenv/bin"
       args:
         executable: /bin/bash
+      register: jenv_add
+      changed_when: "'already present' not in jenv_add.stdout"
       loop:
         - /usr/lib/jvm/java-1.8.0-openjdk-amd64
         - /usr/lib/jvm/java-1.11.0-openjdk-amd64
