@@ -4,25 +4,39 @@
   tasks:
     - name: Create vim autoload directory
       file:
-          path: ~/.vim/autoload
-          state: directory
-          mode: 0700
+        path: ~/.vim/autoload
+        state: directory
+        mode: 0700
     - name: Download vim-plug install script
       get_url:
-          url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-          dest: ~/.vim/autoload/plug.vim
-          mode: 0700
-          force: true
-          timeout: 30
+        url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+        dest: /tmp/plug.vim
+        mode: 0700
+        force: true
+        timeout: 30
       register: download
       until: download is success
       retries: 3
       delay: 5
       changed_when: false
+    - name: Store md5sum of current plug.vim
+      shell:
+        cmd: md5sum ~/.vim/autoload/plug.vim | awk '{print $1}'
+      register: current_md5sum
+      changed_when: false
+    - name: Store md5sum of new plug.vim
+      shell:
+        cmd: md5sum /tmp/plug.vim | awk '{print $1}'
+      register: new_md5sum
+      changed_when: false
+    - name: Move vim-plug install script to ~/.vim/autoload/plug.vim
+      shell: mv /tmp/plug.vim ~/.vim/autoload/plug.vim
+      when: current_md5sum.stdout != new_md5sum.stdout
+      changed_when: true
     - name: Install vim plugins
       shell: vim +'PlugInstall --sync' +qall
       args:
-          executable: /bin/bash
+        executable: /bin/bash
       register: vim_plug_install
       changed_when: "'Installing' in vim_plug_install.stdout"
       failed_when: "'Error' in vim_plug_install.stdout"
