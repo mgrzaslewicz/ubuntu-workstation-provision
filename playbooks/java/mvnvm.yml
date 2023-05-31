@@ -1,19 +1,32 @@
 ---
-- name: Install mvn
+- name: Install mvnvm
   hosts: all
   tasks:
-    - name: Make sure ~/bin is present
-      file:
-        path: "~/bin"
-        state: directory
-        mode: 0700
-    - name: Download mvnvm
+    - name: Download binary
       get_url:
         url: https://bitbucket.org/mjensen/mvnvm/raw/master/mvn
-        dest: ~/bin/mvn
+        dest: /tmp/mvn
         mode: 0700
         timeout: 30
       register: download
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
+    - name: Store md5sum of current binary
+      shell:
+          cmd: md5sum /usr/local/bin/mvn | awk '{print $1}'
+      register: current_md5sum
+      changed_when: false
+    - name: Store md5sum of new binary
+      shell:
+          cmd: md5sum /tmp/mvn | awk '{print $1}'
+      register: new_md5sum
+      changed_when: false
+    - name: Copy mvn to /usr/local/bin if update available
+      when: current_md5sum.stdout != new_md5sum.stdout
+      become: true
+      copy:
+          src: /tmp/mvn
+          dest: /usr/local/bin/mvn
+          mode: 0700
