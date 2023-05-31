@@ -43,10 +43,8 @@
         cmd: md5sum /tmp/lazygit | awk '{print $1}'
       register: new_md5sum
       changed_when: false
-    - name: Exit if no update is available
-      meta: end_play
-      when: current_md5sum.stdout == new_md5sum.stdout
     - name: Move lazygit to /usr/local/bin
+      when: current_md5sum.stdout != new_md5sum.stdout
       become: true
       shell: mv /tmp/lazygit /usr/local/bin/lazygit
     - name: Make lazygit executable
