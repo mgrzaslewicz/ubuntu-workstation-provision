@@ -7,7 +7,14 @@
       apt:
         state: present
         name: zsh
+    - name: Get current login shell
+      shell: echo $SHELL
+      register: current_shell
+      args:
+          executable: /bin/bash
+      changed_when: false
     - name: Make zsh default shell
+      when: current_shell.stdout != "/usr/bin/zsh"
       shell: USER=$(whoami) sudo chsh -s $(which zsh) $USER
       args:
         executable: /bin/bash
