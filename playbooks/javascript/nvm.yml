@@ -13,5 +13,15 @@
       retries: 3
       delay: 5
       changed_when: false
+    - name: Get current nvm version (if any)
+      shell: jq '.version' ~/.nvm/package.json
+      register: pre_update_nvm_version
+      changed_when: false
+      ignore_errors: true
     - name: Install nvm
-      shell: bash /tmp/nvm.sh
+      shell: bash /tmp/nvm.sh # instruction specifically says to use bash
+      changed_when: false
+    - name: Report as changed when new nvm version installed
+      shell: jq '.version' ~/.nvm/package.json
+      register: post_update_nvm_version
+      changed_when: pre_update_nvm_version.stdout != post_update_nvm_version.stdout
