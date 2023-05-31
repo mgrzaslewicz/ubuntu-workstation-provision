@@ -13,6 +13,12 @@
       retries: 3
       delay: 5
       changed_when: false
+    - name: Store current version
+      shell:
+          cmd: lazydocker --version
+      ignore_errors: true
+      register: current_version
+      changed_when: false
     - name: Install lazydocker
       shell: /tmp/install_lazydocker.sh
       become: true
@@ -20,3 +26,9 @@
         DIR: /usr/local/bin
       args:
         executable: /bin/sh
+      changed_when: false
+    - name: Report as changed when new version installed
+      shell:
+          cmd: lazydocker --version
+      register: new_version
+      changed_when: current_version.stdout != new_version.stdout
