@@ -14,7 +14,8 @@
       until: download is success
       retries: 3
       delay: 5
+      changed_when: false
     - name: Install dotfiles
       shell: bash /tmp/install-mg-dotfiles.sh
       args:
-          executable: /bin/sh
+        executable: /bin/sh
