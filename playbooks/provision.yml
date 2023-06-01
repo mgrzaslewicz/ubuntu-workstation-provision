@@ -37,6 +37,7 @@
 - import_playbook: dotfiles/home-dir-as-git-repository.yml
 
 - import_playbook: vim/vim-plug.yml
+- import_playbook: vim/neovim.yml
 
 
 # TODO
