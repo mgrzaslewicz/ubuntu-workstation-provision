@@ -26,7 +26,6 @@
 
 - import_playbook: install-packages.yml
 
-- import_playbook: various/balena.yml
 - import_playbook: various/broot.yml
 - import_playbook: various/delta.yml
 - import_playbook: various/lsd.yml
