@@ -28,6 +28,8 @@
         - wine
         - xclip
         - yarn
+        - vagrant
+        - virtualbox
     - name: Remove packages
       become: true
       apt:
