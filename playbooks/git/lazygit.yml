@@ -7,7 +7,7 @@
         url: https://api.github.com/repos/jesseduffield/lazygit/releases/latest
         return_content: yes
       register: lazygit_latest_version_metadata
-      until: download is success
+      until: lazygit_latest_version_metadata is success
       retries: 3
       delay: 5
     - name: Parse latest version tag
