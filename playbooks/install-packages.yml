@@ -28,11 +28,14 @@
         - wine
         - xclip
         - yarn
-    - name: Remove unattended-upgrades to have bigger control when upgrades are run
+    - name: Remove packages
       become: true
       apt:
         state: absent
-        name: unattented-upgrades
+        name: '{{ item }}'
+      loop:
+        - curl # snap has never version
+        - unattented-upgrades # to have bigger control when upgrades are run
     - name: Install snap packages
       become: true
       community.general.snap:
