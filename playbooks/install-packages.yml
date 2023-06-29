@@ -2,6 +2,14 @@
 - name: Install apt and snap packages
   hosts: all
   tasks:
+    - name: Remove packages
+      become: true
+      apt:
+        state: absent
+        name: '{{ item }}'
+      loop:
+        - curl # snap has never version
+        - unattented-upgrades # to have bigger control when upgrades are run
     - name: Install apt packages
       become: true
       apt:
@@ -30,14 +38,6 @@
         - yarn
         - vagrant
         - virtualbox
-    - name: Remove packages
-      become: true
-      apt:
-        state: absent
-        name: '{{ item }}'
-      loop:
-        - curl # snap has never version
-        - unattented-upgrades # to have bigger control when upgrades are run
     - name: Install snap packages
       become: true
       community.general.snap:
