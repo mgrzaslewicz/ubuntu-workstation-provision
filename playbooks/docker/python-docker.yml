@@ -1,8 +1,0 @@
----
-- name: Install python3 and python docker module
-  hosts: all
-  tasks:
-    - name: Install python docker module
-      become: true
-      pip:
-        name: docker
