@@ -32,3 +32,8 @@
         name: core.commentChar
         scope: global
         value: ';'
+    - name: Use vim as default editor
+      git_config:
+        name: core.editor
+        scope: global
+        value: 'vim'
