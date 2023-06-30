@@ -3,6 +3,5 @@
   hosts: all
   tasks:
     - name: Install konsave for exporting kde settings # https://github.com/Prayag2/konsave
-      shell: python3 -m pip install konsave
-      register: install_konsave
-      changed_when: "'Requirement already satisfied: konsave' not in install_konsave.stdout"
+      community.general.pipx:
+        name: konsave
