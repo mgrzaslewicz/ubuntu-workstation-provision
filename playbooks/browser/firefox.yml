@@ -1,0 +1,10 @@
+---
+- name: Install firefox
+  hosts: all
+  become: true
+  tasks:
+    - name: Install firefox
+      apt:
+        name: "firefox"
+        state: latest
+        update_cache: true
