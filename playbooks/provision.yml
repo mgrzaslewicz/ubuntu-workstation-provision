@@ -28,6 +28,7 @@
 - import_playbook: browser/brave.yml
 - import_playbook: browser/chrome.yml
 - import_playbook: browser/firefox.yml
+- import_playbook: browser/tor.yml
 
 - import_playbook: various/broot.yml
 - import_playbook: various/delta.yml

@@ -1,0 +1,13 @@
+---
+- name: Install tor
+  hosts: all
+  become: true
+  tasks:
+    - name : Install tor
+      apt:
+        name: tor
+        state: latest
+    - name : Install tor browser
+      apt:
+        name: torbrowser-launcher
+        state: latest
