@@ -1,0 +1,18 @@
+---
+- name: Install brave
+  hosts: all
+  become: true
+  tasks:
+    - name: "Add apt key"
+      apt_key:
+        state: present
+        url: 'https://brave-browser-apt-release.s3.brave.com/brave-core.asc'
+    - name: "Add apt repository"
+      apt_repository:
+        filename: "brave-browser"
+        repo: 'deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main'
+        state: present
+    - name: 'Ensure brave-browser is installed'
+      apt:
+        name: brave-browser
+        state: present
