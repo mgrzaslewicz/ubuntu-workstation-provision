@@ -7,9 +7,12 @@
       apt:
         state: present
         name: ansible
-    - name: Install ansible dependencies
-      pip:
-        name:
-          - ansible
-          - ansible-lint
-          - ansible-review
+    - name: Install ansible python package
+      community.general.pipx:
+        name: ansible
+    - name: Install ansible-lint python package
+      community.general.pipx:
+        name: ansible-lint
+    - name: Install ansible-review python package
+      community.general.pipx:
+        name: ansible-review
