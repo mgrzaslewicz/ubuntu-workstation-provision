@@ -34,12 +34,12 @@
         - tmuxinator
         - unrar
         - unzip
-        - wine
-        - xclip
-        - yarn
-        - yakuake
         - vagrant
         - virtualbox
+        - wine
+        - xclip
+        - yakuake
+        - yarn
     - name: Install snap packages
       become: true
       community.general.snap:
