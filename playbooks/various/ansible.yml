@@ -1,0 +1,15 @@
+---
+- name: Install ansible
+  hosts: all
+  tasks:
+    - name: Install ansible
+      become: true
+      apt:
+        state: present
+        name: ansible
+    - name: Install ansible dependencies
+      pip:
+        name:
+          - ansible
+          - ansible-lint
+          - ansible-review
