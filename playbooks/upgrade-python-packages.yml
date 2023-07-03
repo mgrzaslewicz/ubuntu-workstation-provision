@@ -2,19 +2,7 @@
 - name: Upgrade python packages
   hosts: all
   tasks:
-    - name: Get all outdated packages as json
-      command: pip list --outdated --format=json
-      register: outdated_packages
-      changed_when: false
-      failed_when: false
-    - name: Parse outdated packages names
-      set_fact:
-        outdated_packages_names: "{{ outdated_packages.stdout | from_json | map(attribute='name') | list }}"
-    - name: Print outdated packages
-      debug:
-        msg: "{{ outdated_packages_names }}"
     - name: Upgrade outdated packages with pipx
-      community.general.pipx:
-        name: "{{ item }}"
-        state: latest
-      with_items: "{{ outdated_packages_names }}"
+      shell: pipx upgrade-all
+      register: result
+      changed_when: "'Versions did not change' not in result.stdout"
