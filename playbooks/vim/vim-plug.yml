@@ -39,4 +39,6 @@
         executable: /bin/bash
       register: vim_plug_install
       changed_when: "'Installing' in vim_plug_install.stdout"
-      failed_when: "'Error' in vim_plug_install.stdout"
+      failed_when:
+        - "vim_plug_install.rc != 0"
+        - "'Error' in vim_plug_install.stdout"
