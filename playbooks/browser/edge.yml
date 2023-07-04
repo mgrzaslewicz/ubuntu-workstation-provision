@@ -3,6 +3,7 @@
   hosts: all
   vars:
     gpg_key_location: /usr/share/keyrings/microsoft.gpg
+  tags: graphical
   tasks:
     - name: Check if GPG key is already imported
       stat:

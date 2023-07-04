@@ -2,6 +2,7 @@
 - name: Install tor
   hosts: all
   become: true
+  tags: graphical
   tasks:
     - name : Install tor
       apt:

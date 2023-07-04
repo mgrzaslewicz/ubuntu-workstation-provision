@@ -2,6 +2,7 @@
 - name: Install chrome
   hosts: all
   become: true
+  tags: graphical
   tasks:
     - name: Install apt-transport-https
       ansible.builtin.apt:

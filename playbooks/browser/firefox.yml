@@ -2,6 +2,7 @@
 - name: Install firefox
   hosts: all
   become: true
+  tags: graphical
   tasks:
     - name: Install firefox
       apt:

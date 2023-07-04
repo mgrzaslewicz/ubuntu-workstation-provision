@@ -4,6 +4,7 @@
   tasks:
     - name: Install visualvm
       become: true
+      tags: graphical
       apt:
         state: present
         name: visualvm

@@ -9,18 +9,14 @@
         name: '{{ item }}'
       loop:
         - unattented-upgrades # to have bigger control when upgrades are run
-    - name: Install apt packages
+    - name: Install apt console packages
       become: true
       apt:
         state: present
         name: '{{ item }}'
       loop:
         - bat
-        - flameshot
-        - gimp
-        - graphviz # needed for intellij plugin plantUML
         - hexyl # hex viewer https://github.com/sharkdp/hexyl
-        - kwin-bismuth # tiling window management script for kde
         - mc
         - nmap
         - oathtool # 2FA code, e.g. oathtool -b --totp 'secret code' | xclip -sel clip
@@ -36,12 +32,32 @@
         - unzip
         - vagrant
         - virtualbox
+        - yarn
+    - name: Install apt graphical packages
+      become: true
+      tags: graphical
+      apt:
+        state: present
+        name: '{{ item }}'
+      loop:
+        - flameshot
+        - gimp
+        - graphviz # needed for intellij plugin plantUML
+        - kwin-bismuth # tiling window management script for kde
         - wine
         - xclip
         - yakuake
-        - yarn
-    - name: Install snap packages
+    - name: Install snap console packages
       become: true
+      community.general.snap:
+        name: '{{ item.package }}'
+        channel: latest/edge
+        classic: '{{ item.classic }}'
+      loop:
+        - { package: yq, classic: false }
+    - name: Install snap graphical packages
+      become: true
+      tags: graphical
       community.general.snap:
         name: '{{ item.package }}'
         channel: latest/edge
@@ -54,4 +70,3 @@
         - { package: signal-desktop, classic: false }
         - { package: spotify, classic: false }
         - { package: sublime-text, classic: true }
-        - { package: yq, classic: false }
