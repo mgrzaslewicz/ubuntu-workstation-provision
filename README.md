@@ -1,12 +1,18 @@
 # dev-machine-provision
 Set of ansible playbooks to provision a development machine in a few minutes.
 
-Adjust it to your needs and run it with
+# Usage
+## Run from the sources directory
 ```bash
 ./provision.sh
 ```
 
-If you want to exclude provisioning graphical tools, run it with
+## Run from the sources directory excluding provisioning graphical tools
 ```bash
 SKIP_TAGS="graphical" ./provision.sh
+```
+
+### Run when 'provision.sh' is on the path
+```bash
+export SKIP_TAGS="graphical" && provision
 ```
