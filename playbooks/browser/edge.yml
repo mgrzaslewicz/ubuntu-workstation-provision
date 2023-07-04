@@ -1,0 +1,30 @@
+---
+- name: Install edge browser
+  hosts: all
+  vars:
+    gpg_key_location: /usr/share/keyrings/microsoft.gpg
+  tasks:
+    - name: Check if GPG key is already imported
+      stat:
+        path: '{{ gpg_key_location }}'
+      register: gpg_key
+    - name: Download GPG key if needed
+      when: not gpg_key.stat.exists
+      get_url:
+        url: https://packages.microsoft.com/keys/microsoft.asc
+        dest: /tmp/microsoft.asc
+    - name: Import GPG key
+      become: true
+      when: not gpg_key.stat.exists
+      shell: 'cat /tmp/microsoft.asc | gpg --dearmor > {{ gpg_key_location }}'
+    - name: Add repository
+      become: true
+      when: not gpg_key.stat.exists
+      apt_repository:
+        repo: 'deb [arch=amd64 signed-by={{ gpg_key_location }}] https://packages.microsoft.com/repos/edge stable main'
+        state: present
+        filename: microsoft-edge
+    - name: Install edge
+      become: true
+      apt:
+        name: microsoft-edge-beta
