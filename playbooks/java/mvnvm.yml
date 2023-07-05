@@ -1,6 +1,7 @@
 ---
 - name: Install mvnvm
   hosts: all
+  tags: java
   tasks:
     - name: Download binary
       get_url:

@@ -1,6 +1,7 @@
 ---
 - name: Install JDK
   hosts: all
+  tags: java
   tasks:
     - name: Install multiple JDKs
       become: true

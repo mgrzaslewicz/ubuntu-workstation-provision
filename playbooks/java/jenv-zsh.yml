@@ -1,6 +1,7 @@
 ---
 - name: Setup jenv in zsh
   hosts: all
+  tags: java
   tasks:
     - name: Make sure java.zsh is present
       file:
