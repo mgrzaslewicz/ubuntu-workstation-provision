@@ -1,6 +1,7 @@
 ---
 - name: Install docker
   hosts: all
+  tags: docker
   tasks:
     - name: Install docker
       become: true

@@ -1,6 +1,7 @@
 ---
 - name: Install lazydocker
   hosts: all
+  tags: docker
   tasks:
     - name: Download lazydocker install script
       get_url:
