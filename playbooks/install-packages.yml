@@ -17,7 +17,6 @@
       loop:
         - bat
         - hexyl # hex viewer https://github.com/sharkdp/hexyl
-        - imagemagick
         - mc
         - nmap
         - oathtool # 2FA code, e.g. oathtool -b --totp 'secret code' | xclip -sel clip

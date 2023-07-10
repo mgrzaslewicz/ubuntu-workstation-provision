@@ -1,0 +1,16 @@
+---
+- name: Install imagemagick
+  hosts: all
+  tasks:
+    - name: Install imagemagick
+      become: true
+      apt:
+        state: present
+        name: imagemagick
+    - name: Fix policy to generate PDFs
+      become: true
+      lineinfile:
+        path: /etc/ImageMagick-6/policy.xml
+        regexp: '<policy domain="coder" rights="none" pattern="PDF" />'
+        line: '<policy domain="coder" rights="read|write" pattern="PDF" />'
+        state: present
