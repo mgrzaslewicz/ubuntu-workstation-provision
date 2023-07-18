@@ -14,3 +14,10 @@
         regexp: '<policy domain="coder" rights="none" pattern="PDF" />'
         line: '<policy domain="coder" rights="read|write" pattern="PDF" />'
         state: present
+    - name: Increase memory limit
+      become: true
+      lineinfile:
+        path: /etc/ImageMagick-6/policy.xml
+        regexp: '<policy domain="resource" name="memory" value="256MiB"/>'
+        line: '<policy domain="resource" name="memory" value="2GiB"/>'
+        state: present
