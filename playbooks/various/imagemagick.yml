@@ -1,6 +1,7 @@
 ---
 - name: Install imagemagick
   hosts: all
+  tags: pdf, imagemagick
   tasks:
     - name: Install imagemagick
       become: true
