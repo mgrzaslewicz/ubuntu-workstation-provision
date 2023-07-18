@@ -54,7 +54,6 @@
         channel: latest/edge
         classic: '{{ item.classic }}'
       loop:
-        - { package: pdftk, classic: false }
         - { package: yq, classic: false }
     - name: Install snap graphical packages
       become: true
