@@ -1,0 +1,10 @@
+---
+- name: Install chromium
+  hosts: all
+  become: true
+  tags: graphical
+  tasks:
+    - name: Install chromium
+      apt:
+        state: present
+        name: chromium-browser
