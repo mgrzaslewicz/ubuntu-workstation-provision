@@ -8,3 +8,14 @@
       apt:
         state: present
         name: chromium-browser
+    - name: Create chromium config 'managed' directory
+      file:
+        path: /etc/chromium/policies/managed
+        state: directory
+        mode: 0755
+    - name: Create chromium config 'managed' file
+      template:
+        src: chromium-extensions.json
+        dest: /etc/chromium/policies/managed/extensions.json
+        mode: 0644
+
