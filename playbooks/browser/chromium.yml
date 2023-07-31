@@ -2,7 +2,7 @@
 - name: Install chromium
   hosts: all
   become: true
-  tags: graphical
+  tags: graphical, chromium, browser
   tasks:
     - name: Install chromium
       apt:

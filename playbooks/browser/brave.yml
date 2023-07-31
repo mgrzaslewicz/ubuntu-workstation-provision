@@ -2,7 +2,7 @@
 - name: Install brave
   hosts: all
   become: true
-  tags: graphical
+  tags: graphical, brave, browser
   tasks:
     - name: "Add apt key"
       apt_key:

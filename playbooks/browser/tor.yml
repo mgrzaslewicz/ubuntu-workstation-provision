@@ -2,7 +2,7 @@
 - name: Install tor
   hosts: all
   become: true
-  tags: graphical
+  tags: graphical, tor, browser
   tasks:
     - name : Install tor
       apt:
