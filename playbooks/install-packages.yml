@@ -51,7 +51,7 @@
       become: true
       community.general.snap:
         name: '{{ item.package }}'
-        channel: latest/edge
+        channel: "{{ item.channel | default('latest/edge') }}"
         classic: '{{ item.classic }}'
       loop:
         - { package: yq, classic: false }
@@ -60,13 +60,13 @@
       tags: graphical
       community.general.snap:
         name: '{{ item.package }}'
-        channel: latest/edge
-        classic: '{{ item.classic }}'
+        channel: "latest/stable"
+        classic: '{{ item.classic | default(false) }}'
       loop:
-        - { package: authy, classic: false }
-        - { package: foobar2000, classic: false }
+        - { package: authy }
+        - { package: foobar2000 }
         - { package: intellij-idea-ultimate, classic: true }
-        - { package: postman, classic: false }
-        - { package: signal-desktop, classic: false }
-        - { package: spotify, classic: false }
+        - { package: postman }
+        - { package: signal-desktop }
+        - { package: spotify }
         - { package: sublime-text, classic: true }
