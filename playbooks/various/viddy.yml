@@ -1,6 +1,7 @@
 ---
 - name: Install viddy
   hosts: all
+  tags: viddy
   tasks:
     - name: Download latest release metadata
       uri:
