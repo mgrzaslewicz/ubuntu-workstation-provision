@@ -27,7 +27,7 @@
       git_config:
         name: core.excludesfile
         scope: global
-        value: '{{ ansible_env.HOME }}/.gitignore_global'
+        value: '~/.gitignore_global'
     - name: Change default comment character to ';' in git
       git_config:
         name: core.commentChar
