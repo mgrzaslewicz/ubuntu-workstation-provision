@@ -1,6 +1,7 @@
 ---
 - name: Install nvm
   hosts: all
+  gather_facts: False
   tasks:
     - name: Download nvm install script
       get_url:

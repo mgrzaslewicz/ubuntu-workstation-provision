@@ -1,6 +1,7 @@
 ---
 - name: Install and setup oh-my-zsh
   hosts: all
+  gather_facts: False
   tasks:
     - name: Download oh-my-zsh install script
       get_url:

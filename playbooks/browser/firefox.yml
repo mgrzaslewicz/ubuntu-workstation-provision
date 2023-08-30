@@ -1,6 +1,7 @@
 ---
 - name: Install firefox
   hosts: all
+  gather_facts: False
   become: true
   tags: graphical, firefox, browser
   tasks:

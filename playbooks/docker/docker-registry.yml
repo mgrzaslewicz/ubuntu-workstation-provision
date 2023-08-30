@@ -1,6 +1,7 @@
 ---
 - name: Install docker registry
   hosts: all
+  gather_facts: False
   tags: docker
   tasks:
     - name: Start docker registry

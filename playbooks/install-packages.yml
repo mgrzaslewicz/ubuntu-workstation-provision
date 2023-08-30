@@ -1,6 +1,7 @@
 ---
 - name: Install apt and snap packages
   hosts: all
+  gather_facts: False
   tasks:
     - name: Remove packages
       become: true

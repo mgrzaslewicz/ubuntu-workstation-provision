@@ -2,6 +2,7 @@
 - name: Install dotfiles
   # good resource on dotfiles: https://dotfiles.github.io/tutorials/
   hosts: all
+  gather_facts: False
   tasks:
     - name: Download dotfiles install script
       get_url:

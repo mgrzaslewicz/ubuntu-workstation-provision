@@ -1,6 +1,7 @@
 ---
 - name: Install tor
   hosts: all
+  gather_facts: False
   become: true
   tags: graphical, tor, browser
   tasks:

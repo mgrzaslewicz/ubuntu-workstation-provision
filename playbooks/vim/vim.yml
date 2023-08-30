@@ -1,6 +1,7 @@
 ---
 - name: Install vim
   hosts: all
+  gather_facts: False
   tasks:
     - name: Install vim
       become: true

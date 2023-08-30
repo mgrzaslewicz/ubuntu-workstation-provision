@@ -1,6 +1,7 @@
 ---
 - name: Install JDK
   hosts: all
+  gather_facts: False
   tags: java
   vars:
     jdk_14_dir: /usr/lib/jvm/openjdk-14

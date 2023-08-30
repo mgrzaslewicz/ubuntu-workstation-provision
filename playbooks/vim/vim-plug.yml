@@ -1,6 +1,7 @@
 ---
 - name: Install vim-plug to manage vim plugins
   hosts: all
+  gather_facts: False
   tasks:
     - name: Create vim autoload directory
       file:

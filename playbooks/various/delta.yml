@@ -1,6 +1,7 @@
 ---
 - name: Install delta, a tool to view git diff with syntax highlighting
   hosts: all
+  gather_facts: False
   tasks:
     - name: Download latest release metadata
       uri:

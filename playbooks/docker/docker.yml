@@ -2,6 +2,7 @@
 - name: Install docker
   hosts: all
   tags: docker
+  gather_facts: False
   tasks:
     - name: Install docker
       become: true

@@ -1,6 +1,7 @@
 ---
 - name: Install cheat
   hosts: all
+  gather_facts: False
   tasks:
     - name: Download latest release metadata
       uri:

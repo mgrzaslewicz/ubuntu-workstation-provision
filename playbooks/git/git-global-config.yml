@@ -1,6 +1,7 @@
 ---
 - name: Configure git
   hosts: all
+  gather_facts: False
   tasks:
     - name: Make sure global gitignore file is present
       file:

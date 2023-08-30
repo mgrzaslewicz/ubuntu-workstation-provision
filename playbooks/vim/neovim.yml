@@ -1,6 +1,7 @@
 ---
 - name: Configure nvim
   hosts: all
+  gather_facts: False
   tasks:
     - name: Install neovim
       become: true

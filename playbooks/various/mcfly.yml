@@ -1,6 +1,7 @@
 ---
 - name: Install mcfly for searching shell history
   hosts: all
+  gather_facts: False
   tasks:
     - name: Download mcfly install script
       get_url:

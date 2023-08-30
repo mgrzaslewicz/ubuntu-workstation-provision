@@ -1,6 +1,7 @@
 ---
 - name: Install chromium
   hosts: all
+  gather_facts: False
   become: true
   tags: graphical, chromium, browser
   tasks:

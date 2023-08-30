@@ -1,6 +1,7 @@
 ---
 - name: Upgrade ubuntu
   hosts: all
+  gather_facts: False
   tasks:
     - name: Upgrade ubuntu
       become: true

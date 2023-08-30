@@ -1,6 +1,7 @@
 ---
 - name: Install edge browser
   hosts: all
+  gather_facts: False
   vars:
     gpg_key_location: /usr/share/keyrings/microsoft.gpg
   tags: graphical, edge, browser

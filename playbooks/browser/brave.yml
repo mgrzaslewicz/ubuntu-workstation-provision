@@ -1,6 +1,7 @@
 ---
 - name: Install brave
   hosts: all
+  gather_facts: False
   become: true
   tags: graphical, brave, browser
   tasks:

@@ -1,6 +1,7 @@
 ---
 - name: Install 'lsd', a better 'ls'
   hosts: all
+  gather_facts: False
   tags: lsd
   tasks:
     - name: Download latest release metadata

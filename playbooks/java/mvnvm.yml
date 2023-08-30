@@ -1,6 +1,7 @@
 ---
 - name: Install mvnvm
   hosts: all
+  gather_facts: False
   tags: java
   tasks:
     - name: Download binary

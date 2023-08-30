@@ -1,6 +1,7 @@
 ---
 - name: Install broot
   hosts: all
+  gather_facts: False
   tasks:
     - name: Download broot
       get_url:

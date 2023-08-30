@@ -1,6 +1,7 @@
 ---
 - name: Install powerlevel10k
   hosts: all
+  gather_facts: False
   tasks:
     - name: Install powerlevel10k
       ansible.builtin.git:
