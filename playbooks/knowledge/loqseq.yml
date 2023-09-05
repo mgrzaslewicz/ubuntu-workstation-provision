@@ -1,0 +1,55 @@
+---
+- name: Install logseq
+  hosts: all
+  gather_facts: False
+  tags: graphical, logseq
+  tasks:
+    - name: Download latest release metadata
+      uri:
+        url: https://api.github.com/repos/logseq/logseq/releases/latest
+        return_content: yes
+      register: logseq_latest_version_metadata
+      until: logseq_latest_version_metadata is success
+      retries: 3
+      delay: 5
+      changed_when: false
+    - name: Parse latest version tag
+      set_fact:
+        logseq_latest_version: "{{ logseq_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
+      changed_when: false
+    - name: Check if update is available
+      shell:
+        cmd: ls /usr/local/bin | grep Logseq-linux-x64 | grep -oP '(?<=Logseq-linux-x64-)\d+\.\d+\.\d+'
+      register: logseq_installed_version
+      ignore_errors: true
+      changed_when: false
+    - name: Set update available
+      set_fact:
+        logseq_update_available: "{{ logseq_latest_version != logseq_installed_version }}"
+      when: logseq_installed_version is defined
+    - name: Download if update is available
+      become: true
+      get_url:
+        url: "https://github.com/logseq/logseq/releases/download/{{ logseq_latest_version }}/Logseq-linux-x64-{{ logseq_latest_version }}.AppImage"
+        dest: /usr/local/bin/Logseq-linux-x64-{{ logseq_latest_version }}.AppImage
+      when: logseq_update_available
+      changed_when: false
+    - name: Make executable
+      become: true
+      file:
+        path: /usr/local/bin/Logseq-linux-x64-{{ logseq_latest_version }}.AppImage
+        mode: 0755
+      when: logseq_update_available
+    - name: Update symbolic link
+      become: true
+      file:
+        src: /usr/local/bin/Logseq-linux-x64-{{ logseq_latest_version }}.AppImage
+        dest: /usr/local/bin/logseq
+        state: link
+      when: logseq_update_available
+    - name: Delete previous version
+      become: true
+      file:
+        path: /usr/local/bin/Logseq-linux-x64-{{ logseq_installed_version }}.AppImage
+        state: absent
+      when: logseq_update_available
