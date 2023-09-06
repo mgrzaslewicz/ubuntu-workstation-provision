@@ -42,6 +42,7 @@
         state: present
         name: '{{ item }}'
       loop:
+        - baobab # disc analyzer
         - filezilla
         - flameshot
         - gimp
