@@ -19,6 +19,7 @@
         - bat
         - hexyl # hex viewer https://github.com/sharkdp/hexyl
         - crudini # to manipulate ini files easily
+        - fd-find # to find files easily
         - mc
         - nmap
         - oathtool # 2FA code, e.g. oathtool -b --totp 'secret code' | xclip -sel clip
