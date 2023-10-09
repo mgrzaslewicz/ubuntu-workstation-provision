@@ -48,6 +48,7 @@
         - flameshot
         - gimp
         - graphviz # needed for intellij plugin plantUML
+        - keepassxc
         - kwin-bismuth # tiling window management script for kde
         - wine
         - xclip
