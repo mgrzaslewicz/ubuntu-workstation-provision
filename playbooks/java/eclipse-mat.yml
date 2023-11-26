@@ -1,0 +1,94 @@
+- name: Install Eclipse MAT
+  hosts: all
+  gather_facts: False
+  tags: graphical, eclipse-mat, java
+  vars:
+    download_link: https://ftp.fau.de/eclipse/mat/1.14.0/rcp/MemoryAnalyzer-1.14.0.20230315-linux.gtk.x86_64.zip
+  tasks:
+    - name: Extract version from download link
+      set_fact:
+        version: "{{ download_link | regex_replace('.*/mat/(.*)/rcp/.*', '\\1') }}"
+    - name: Check if Eclipse MAT is installed
+      stat:
+        path: /opt/eclipse-mat
+      register: mat_installed
+    - name: Check if expected Eclipse MAT version is installed
+      stat:
+        path: /opt/eclipse-mat/.v{{ version }}
+      register: expected_mat_installed
+    - name: Download Eclipse MAT
+      when: not expected_mat_installed.stat.exists
+      get_url:
+        url: "{{ download_link }}"
+        dest: /tmp/eclipse-mat.zip
+        mode: 0700
+        timeout: 60
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
+      changed_when: false
+    - name: Delete old Eclipse MAT installation
+      become: true
+      file:
+        path: /opt/eclipse-mat
+        state: absent
+      when: mat_installed.stat.exists and not expected_mat_installed.stat.exists
+    - name: Unpack Eclipse MAT
+      become: true
+      when: not expected_mat_installed.stat.exists
+      changed_when: false
+      unarchive:
+        src: /tmp/eclipse-mat.zip
+        dest: /tmp
+        remote_src: yes
+        creates: /tmp/mat
+    - name: Move Eclipse MAT to /opt
+      become: true
+      when: not expected_mat_installed.stat.exists
+      shell: 'mv /tmp/mat /opt/eclipse-mat'
+    - name: Set permissions
+      become: true
+      when: not expected_mat_installed.stat.exists
+      file:
+        path: /opt/eclipse-mat
+        mode: 0755
+        owner: root
+        group: root
+        recurse: true
+    - name: Create version file
+      become: true
+      when: not expected_mat_installed.stat.exists
+      file:
+        path: /opt/eclipse-mat/.v{{ version }}
+        state: touch
+        mode: 0744
+        owner: root
+        group: root
+    - name: Set heap space to 4GB
+      become: true
+      when: not expected_mat_installed.stat.exists
+      lineinfile:
+        path: /opt/eclipse-mat/MemoryAnalyzer.ini
+        regexp: '^-Xmx.*'
+        line: '-Xmx4g'
+        state: present
+    - name: Set java version to 17
+      become: true
+      when: not expected_mat_installed.stat.exists
+      copy:
+        content: 17
+        dest: /opt/eclipse-mat/.java-version
+        mode: 0744
+        owner: root
+        group: root
+    - name: Create symlink to bin
+      become: true
+      when: not expected_mat_installed.stat.exists
+      file:
+        src: /opt/eclipse-mat/MemoryAnalyzer
+        dest: /usr/local/bin/mat
+        state: link
+        mode: 0755
+        owner: root
+        group: root

@@ -15,6 +15,7 @@
 - import_playbook: zsh/oh-my-zsh.yml
 - import_playbook: zsh/powerlevel10k.yml
 
+- import_playbook: java/eclipse-mat.yml
 - import_playbook: java/jdk.yml
 - import_playbook: java/jdk-tools.yml
 - import_playbook: java/jenv.yml
