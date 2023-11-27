@@ -2,6 +2,7 @@
 - name: Install JDK tools
   hosts: all
   gather_facts: False
+  tags: java,jdk-tools
   tasks:
     - name: Install visualvm
       become: true
