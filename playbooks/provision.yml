@@ -42,6 +42,7 @@
 - import_playbook: various/mcfly.yml
 - import_playbook: various/mcfly-zsh.yml
 - import_playbook: various/viddy.yml
+- import_playbook: various/zoom.yml
 - import_playbook: various/zoxide.yml
 
 - import_playbook: dotfiles/home-dir-as-git-repository.yml

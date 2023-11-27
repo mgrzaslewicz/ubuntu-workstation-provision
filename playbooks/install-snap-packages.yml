@@ -26,4 +26,3 @@
         - { package: signal-desktop }
         - { package: spotify }
         - { package: sublime-text, classic: true }
-        - { package: zoom-client, channel: 'latest/edge' }

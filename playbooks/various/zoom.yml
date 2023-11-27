@@ -1,0 +1,43 @@
+---
+- name: Install zoom
+  hosts: all
+  gather_facts: False
+  tags: graphical,zoom
+  tasks:
+    - name: Install zoom snap
+      become: true
+      community.general.snap:
+        name: zoom-client
+        channel: latest/edge
+    - name: Make sure zoom-client.desktop is present
+      become: true
+      file:
+        path: /usr/share/applications/zoom-client.desktop
+        state: touch
+        mode: 0644
+        access_time: preserve
+        modification_time: preserve
+    - name: Fill zoom-client.desktop file
+      become: true
+      lineinfile:
+        path: /usr/share/applications/zoom-client.desktop
+        state: present
+        line: '{{ item }}'
+      loop:
+        - '[Desktop Entry]'
+        - 'Name=Zoom Client'
+        - 'Comment=Zoom Video Conferencing'
+        - 'Exec=/snap/bin/zoom-client %U'
+        - 'Icon=zoom-icon'
+        - 'Terminal=false'
+        - 'Type=Application'
+        - 'Encoding=UTF-8'
+        - 'Categories=Network;Application;'
+        - 'MimeType=x-scheme-handler/zoommtg;'
+    - name: Update desktop database
+      become: true
+      command: update-desktop-database
+      changed_when: false
+    - name: Setup xdg-mime
+      command: xdg-mime default zoom-client.desktop x-scheme-handler/zoommtg
+      changed_when: false
