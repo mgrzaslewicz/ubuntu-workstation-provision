@@ -10,11 +10,11 @@
         return_content: yes
         headers:
           User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36
-      register: latest_zoom_version
+      register: latest_zoom_version_unparsed
       changed_when: false
     - name: Extract zoom version # 1.2.3 (12345) -> 1.2.3.12345
       set_fact:
-        extracted_zoom_version: "{{ latest_zoom_version.content | regex_search('class=\"linux-ver-text\".*Version (\\d+\\.\\d+\\.\\d+) \\(\\d+\\)') | regex_replace('.*Version ', '') | regex_replace(' \\(', '.') | regex_replace('\\)', '') }}"
+        latest_zoom_version: "{{ latest_zoom_version_unparsed.content | regex_search('class=\"linux-ver-text\".*Version (\\d+\\.\\d+\\.\\d+) \\(\\d+\\)') | regex_replace('.*Version ', '') | regex_replace(' \\(', '.') | regex_replace('\\)', '') }}"
     - name: Get already installed zoom version
       shell: dpkg-query -W -f='${Version}' zoom
       register: installed_zoom_version
@@ -22,15 +22,15 @@
       changed_when: false
     - name: Compare installed zoom version with latest version
       set_fact:
-        zoom_version_changed: "{{ extracted_zoom_version != installed_zoom_version.stdout }}"
+        zoom_version_changed: "{{ latest_zoom_version != installed_zoom_version.stdout }}"
     - name: Log if no new version is available
       debug:
-        msg: "Zoom is already installed in version {{ extracted_zoom_version }}"
+        msg: "Zoom is already installed in version {{ latest_zoom_version }}"
       when: not zoom_version_changed
     - name: Exit play when no new version is available
       when: not zoom_version_changed
       meta: end_play
-    - name: Download zoom deb package if new version is available
+    - name: Download zoom {{ latest_zoom_version }}
       get_url:
         url: https://zoom.us/client/latest/zoom_amd64.deb
         dest: /tmp/zoom_amd64.deb
@@ -41,8 +41,8 @@
       retries: 3
       delay: 5
       changed_when: false
-    - name: Install zoom
       become: true
+    - name: Install zoom {{ latest_zoom_version }}
       apt:
         deb: /tmp/zoom_amd64.deb
         state: present

@@ -16,7 +16,7 @@
     - name: Parse latest version tag
       set_fact:
         cheat_latest_version: "{{ cheat_latest_version_metadata.json.tag_name }}"
-    - name: Download cheat
+    - name: Download cheat {{ cheat_latest_version }}
       get_url:
         url: "https://github.com/cheat/cheat/releases/download/{{ cheat_latest_version }}/cheat-linux-amd64.gz"
         dest: /tmp/cheat.gz

@@ -27,7 +27,7 @@
       set_fact:
         logseq_update_available: "{{ logseq_latest_version != logseq_installed_version }}"
       when: logseq_installed_version is defined
-    - name: Download if update is available
+    - name: Download logseq {{ logseq_latest_version }}
       become: true
       get_url:
         url: "https://github.com/logseq/logseq/releases/download/{{ logseq_latest_version }}/Logseq-linux-x64-{{ logseq_latest_version }}.AppImage"
