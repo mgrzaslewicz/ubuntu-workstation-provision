@@ -2,6 +2,7 @@
 - name: Upgrade python packages
   hosts: all
   gather_facts: False
+  tags: python,pipx
   tasks:
     - name: Upgrade outdated packages with pipx
       shell: pipx upgrade-all
