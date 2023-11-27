@@ -2,6 +2,7 @@
 - name: Install delta, a tool to view git diff with syntax highlighting
   hosts: all
   gather_facts: False
+  tags: git,delta
   tasks:
     - name: Download latest release metadata
       uri:
@@ -14,7 +15,18 @@
     - name: Parse latest version tag
       set_fact:
         latest_version: "{{ latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
-    - name: Download delta
+    - name: Check currently installed version
+      shell:
+        # Remove release number from 0.16.5-3 -> 0.16.5
+        cmd: dpkg-query -W -f='${Version}' git-delta | cut -d'-' -f1
+      register: installed_version
+      ignore_errors: true
+      changed_when: false
+    - name: Compare installed version with latest version
+      set_fact:
+        update_available: "{{ latest_version != installed_version.stdout }}"
+    - name: Download delta {{ latest_version }}
+      when: update_available
       get_url:
         url: "https://github.com/dandavison/delta/releases/latest/download/git-delta_{{ latest_version }}_amd64.deb"
         dest: /tmp/delta.deb
@@ -23,7 +35,8 @@
       retries: 3
       delay: 5
       changed_when: false
-    - name: Install delta
+    - name: Install delta {{ latest_version }}
+      when: update_available
       become: true
       apt:
         deb: /tmp/delta.deb
