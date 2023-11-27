@@ -36,23 +36,9 @@
         cmd: gunzip /tmp/cheat.gz
         chdir: /tmp
       changed_when: false
-    - name: Store md5sum of current binary
-      shell:
-        cmd: md5sum /usr/local/bin/cheat | awk '{print $1}'
-      register: current_md5sum
-      changed_when: false
-    - name: Store md5sum of new binary
-      shell:
-        cmd: md5sum /tmp/cheat | awk '{print $1}'
-      register: new_md5sum
-      changed_when: false
-    - name: Exit if no update is available
-      meta: end_play
-      when: current_md5sum.stdout == new_md5sum.stdout
-    - name: Move cheat to /usr/local/bin
+    - name: Copy cheat to /usr/local/bin
       become: true
-      shell: mv /tmp/cheat /usr/local/bin/cheat
-    - name: Make cheat executable
-      file:
-        path: /usr/local/bin/cheat
+      copy:
+        src: /tmp/cheat
+        dest: /usr/local/bin/cheat
         mode: 0700
