@@ -2,6 +2,7 @@
 - name: Install zsh
   hosts: all
   gather_facts: False
+  tags: zsh
   tasks:
     - name: Install zsh
       become: true

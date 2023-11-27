@@ -2,6 +2,7 @@
 - name: Setup mcfly in zsh
   hosts: all
   gather_facts: False
+  tags: mcfly
   tasks:
     - name: Make sure mcfly.zsh is present
       file:

@@ -2,7 +2,7 @@
 - name: Install konsave
   hosts: all
   gather_facts: False
-  tags: graphical, kde
+  tags: graphical,kde,konsave
   tasks:
     - name: Install konsave for exporting kde settings # https://github.com/Prayag2/konsave
       community.general.pipx:

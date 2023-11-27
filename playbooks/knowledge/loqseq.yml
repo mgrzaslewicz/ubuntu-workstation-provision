@@ -2,7 +2,7 @@
 - name: Install logseq
   hosts: all
   gather_facts: False
-  tags: graphical, logseq
+  tags: graphical,knowledge,logseq
   tasks:
     - name: Download latest release metadata
       uri:

@@ -1,7 +1,7 @@
 ---
 - name: Install jenv
   hosts: all
-  tags: java
+  tags: java,jenv
   tasks:
     - name: Clone jenv repository
       git:

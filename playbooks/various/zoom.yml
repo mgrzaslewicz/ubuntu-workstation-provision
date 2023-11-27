@@ -2,7 +2,7 @@
 - name: Install zoom from official site
   hosts: all
   gather_facts: False
-  tags: graphical
+  tags: graphical,zoom
   tasks:
     - name: Get latest zoom version string # format 1.2.3 (12345)
       uri:

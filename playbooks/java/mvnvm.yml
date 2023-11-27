@@ -2,7 +2,7 @@
 - name: Install mvnvm
   hosts: all
   gather_facts: False
-  tags: java
+  tags: java,mvnvm
   tasks:
     - name: Download binary
       get_url:
