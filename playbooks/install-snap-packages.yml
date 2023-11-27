@@ -1,0 +1,28 @@
+---
+- name: Install snap packages
+  hosts: all
+  gather_facts: False
+  tags: snap
+  tasks:
+    - name: Install snap console packages
+      become: true
+      community.general.snap:
+        name: '{{ item.package }}'
+        channel: "{{ item.channel | default('latest/edge') }}"
+        classic: '{{ item.classic }}'
+      loop:
+        - { package: yq, classic: false }
+    - name: Install snap graphical packages
+      become: true
+      tags: graphical
+      community.general.snap:
+        name: '{{ item.package }}'
+        channel: "latest/stable"
+        classic: '{{ item.classic | default(false) }}'
+      loop:
+        - { package: foobar2000 }
+        - { package: intellij-idea-ultimate, classic: true }
+        - { package: postman }
+        - { package: signal-desktop }
+        - { package: spotify }
+        - { package: sublime-text, classic: true }

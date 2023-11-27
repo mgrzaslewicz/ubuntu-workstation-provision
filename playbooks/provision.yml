@@ -1,6 +1,7 @@
 ---
 - import_playbook: upgrade-system.yml
-- import_playbook: install-packages.yml
+- import_playbook: install-apt-packages.yml
+- import_playbook: install-snap-packages.yml
 - import_playbook: upgrade-python-packages.yml
 
 - import_playbook: git/git.yml
@@ -41,7 +42,6 @@
 - import_playbook: various/mcfly.yml
 - import_playbook: various/mcfly-zsh.yml
 - import_playbook: various/viddy.yml
-- import_playbook: various/zoom.yml
 - import_playbook: various/zoxide.yml
 
 - import_playbook: dotfiles/home-dir-as-git-repository.yml
