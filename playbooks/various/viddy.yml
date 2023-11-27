@@ -36,23 +36,9 @@
         dest: /tmp
         remote_src: yes
       changed_when: false
-    - name: Store md5sum of current binary
-      shell:
-        cmd: md5sum /usr/local/bin/viddy | awk '{print $1}'
-      register: current_md5sum
-      changed_when: false
-    - name: Store md5sum of new binary
-      shell:
-        cmd: md5sum /tmp/viddy | awk '{print $1}'
-      register: new_md5sum
-      changed_when: false
-    - name: Exit if no update is available
-      meta: end_play
-      when: current_md5sum.stdout == new_md5sum.stdout
-    - name: Move viddy to /usr/local/bin
+    - name: Copy viddy to /usr/local/bin
       become: true
-      shell: mv /tmp/viddy /usr/local/bin/viddy
-    - name: Make viddy executable
-      file:
-        path: /usr/local/bin/viddy
+      copy:
+        src: /tmp/viddy
+        dest: /usr/local/bin/viddy
         mode: 0700
