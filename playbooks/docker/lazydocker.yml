@@ -1,7 +1,7 @@
 ---
 - name: Install lazydocker
   hosts: all
-  tags: docker
+  tags: docker,lazydocker
   gather_facts: False
   tasks:
     - name: Download lazydocker install script
