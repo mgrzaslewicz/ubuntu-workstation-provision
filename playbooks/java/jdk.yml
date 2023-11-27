@@ -6,6 +6,20 @@
   vars:
     jdk_14_dir: /usr/lib/jvm/openjdk-14
   tasks:
+    - name: Install multiple JDKs
+      become: true
+      apt:
+        state: present
+        name: '{{ item }}'
+      loop:
+        - openjdk-8-jdk
+        - openjdk-8-source
+        - openjdk-11-jdk
+        - openjdk-11-source
+        - openjdk-17-jdk
+        - openjdk-17-source
+        - openjdk-19-jdk
+        - openjdk-19-source
     - name: Check if java 14 is installed
       stat:
           path: '{{ jdk_14_dir }}'
@@ -35,17 +49,3 @@
       become: true
       shell: 'mv /usr/lib/jvm/jdk-14 {{ jdk_14_dir }}'
       changed_when: false
-    - name: Install multiple JDKs
-      become: true
-      apt:
-        state: present
-        name: '{{ item }}'
-      loop:
-        - openjdk-8-jdk
-        - openjdk-8-source
-        - openjdk-11-jdk
-        - openjdk-11-source
-        - openjdk-17-jdk
-        - openjdk-17-source
-        - openjdk-19-jdk
-        - openjdk-19-source
