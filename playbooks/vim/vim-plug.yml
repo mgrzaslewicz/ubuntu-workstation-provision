@@ -21,20 +21,11 @@
       retries: 3
       delay: 5
       changed_when: false
-    - name: Store md5sum of current plug.vim
-      shell:
-        cmd: md5sum ~/.vim/autoload/plug.vim | awk '{print $1}'
-      register: current_md5sum
-      changed_when: false
-    - name: Store md5sum of new plug.vim
-      shell:
-        cmd: md5sum /tmp/plug.vim | awk '{print $1}'
-      register: new_md5sum
-      changed_when: false
-    - name: Move vim-plug install script to ~/.vim/autoload/plug.vim
-      shell: mv /tmp/plug.vim ~/.vim/autoload/plug.vim
-      when: current_md5sum.stdout != new_md5sum.stdout
-      changed_when: true
+    - name: Copy vim-plug install script to ~/.vim/autoload/plug.vim
+      copy:
+        src: /tmp/plug.vim
+        dest: ~/.vim/autoload/plug.vim
+        mode: 0700
     - name: Install vim plugins
       shell: vim +'PlugInstall --sync' +qall
       args:
