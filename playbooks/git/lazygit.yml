@@ -2,6 +2,7 @@
 - name: Install lazygit
   hosts: all
   gather_facts: False
+  tags: git
   tasks:
     - name: Download latest release metadata
       uri:

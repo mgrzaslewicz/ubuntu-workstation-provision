@@ -2,6 +2,7 @@
 - name: Configure git
   hosts: all
   gather_facts: False
+  tags: git
   tasks:
     - name: Copy global .gitignore file
       copy:
