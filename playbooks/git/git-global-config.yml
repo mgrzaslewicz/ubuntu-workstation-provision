@@ -3,26 +3,11 @@
   hosts: all
   gather_facts: False
   tasks:
-    - name: Make sure global gitignore file is present
-      file:
-        path: ~/.gitignore_global
-        state: touch
-        mode: 0700
-        access_time: preserve
-        modification_time: preserve
-    - name: Fill global .gitignore file
-      lineinfile:
-        path: ~/.gitignore_global
-        state: present
-        line: '{{ item }}'
-      loop:
-        - '*.iml'
-        - '.idea/'
-        - '*.hprof'
-        - '.DS_Store'
-        - '.vscode'
-        - 'composer.lock'
-        - 'packages.lock'
+    - name: Copy global .gitignore file
+      copy:
+        src: .gitignore_global
+        dest: ~/.gitignore_global
+        mode: 0644
     - name: Configure git to use global .gitignore file
       git_config:
         name: core.excludesfile
