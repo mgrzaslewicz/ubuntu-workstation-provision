@@ -7,15 +7,27 @@ Set of ansible playbooks to provision a development machine in a few minutes.
 ./provision.sh
 ```
 
-## Run from the sources directory excluding provisioning graphical tools
+## Narrow down the scope of executed playbooks
+### Exclude playbooks with tags
 ```bash
-SKIP_TAGS="graphical" ./provision.sh
+SKIP_TAGS="graphical,java" ./provision.sh
 ```
 
 ### Run when 'provision.sh' is on the path
 ```bash
-export SKIP_TAGS="graphical" && provision
+export SKIP_TAGS="graphical,java" && provision
 ```
+
+### Include only playbooks with tags
+```bash
+export TAGS="java,git" && provision
+```
+
+### Include and exclude playbooks with tags
+```bash
+export TAGS="java,git" && export SKIP_TAGS="graphical" && provision
+```
+
 ## Example with vagrant
 ```
 Vagrant.configure("2") do |config|
