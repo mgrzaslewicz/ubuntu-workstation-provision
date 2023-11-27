@@ -15,19 +15,9 @@
       retries: 3
       delay: 5
       changed_when: false
-    - name: Store md5sum of current binary
-      shell:
-        cmd: md5sum /usr/local/bin/broot | awk '{print $1}'
-      register: current_md5sum
-      changed_when: false
-    - name: Store md5sum of new binary
-      shell:
-        cmd: md5sum /tmp/broot | awk '{print $1}'
-      register: new_md5sum
-      changed_when: false
-    - name: Exit if no update is available
-      meta: end_play
-      when: current_md5sum.stdout == new_md5sum.stdout
-    - name: Move broot to /usr/local/bin
+    - name: Copy broot to /usr/local/bin
       become: true
-      shell: mv /tmp/broot /usr/local/bin/broot
+      copy:
+        src: /tmp/broot
+        dest: /usr/local/bin/broot
+        mode: 0700
