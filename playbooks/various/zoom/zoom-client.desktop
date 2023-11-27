@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Zoom Client
+Comment=Zoom Video Conferencing
+Exec=/snap/bin/zoom-client %U
+Icon=zoom-icon
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=Network;Application;
+MimeType=x-scheme-handler/zoommtg;

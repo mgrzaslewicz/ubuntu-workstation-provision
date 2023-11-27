@@ -1,0 +1,24 @@
+---
+- name: Install zoom
+  hosts: all
+  gather_facts: False
+  tags: graphical,zoom
+  tasks:
+    - name: Install zoom snap
+      become: true
+      community.general.snap:
+        name: zoom-client
+        channel: latest/edge
+    - name: Copy zoom-client.desktop
+      become: true
+      copy:
+        src: zoom-client.desktop
+        dest: /usr/share/applications/zoom-client.desktop
+        mode: 0644
+    - name: Update desktop database
+      become: true
+      command: update-desktop-database
+      changed_when: false
+    - name: Setup xdg-mime
+      command: xdg-mime default zoom-client.desktop x-scheme-handler/zoommtg
+      changed_when: false
