@@ -69,7 +69,6 @@
         channel: "latest/stable"
         classic: '{{ item.classic | default(false) }}'
       loop:
-        - { package: authy }
         - { package: foobar2000 }
         - { package: intellij-idea-ultimate, classic: true }
         - { package: postman }
