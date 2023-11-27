@@ -17,7 +17,7 @@
       tags: graphical
       community.general.snap:
         name: '{{ item.package }}'
-        channel: "latest/stable"
+        channel: "{{ item.channel | default('latest/stable') }}"
         classic: '{{ item.classic | default(false) }}'
       loop:
         - { package: foobar2000 }
@@ -26,3 +26,4 @@
         - { package: signal-desktop }
         - { package: spotify }
         - { package: sublime-text, classic: true }
+        - { package: zoom-client, channel: 'latest/edge' }
