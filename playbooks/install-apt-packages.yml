@@ -37,6 +37,7 @@
         - vagrant
         - virtualbox
         - yarn
+        - zbar-tools # to scan QR codes from image or camera
     - name: Install apt graphical packages
       become: true
       tags: graphical
