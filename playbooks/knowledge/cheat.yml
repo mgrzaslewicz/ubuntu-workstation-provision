@@ -6,6 +6,7 @@
   tasks:
     - name: Download latest release metadata
       uri:
+        timeout: 30
         url: https://api.github.com/repos/cheat/cheat/releases/latest
         return_content: yes
       register: cheat_latest_version_metadata

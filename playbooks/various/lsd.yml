@@ -6,6 +6,7 @@
   tasks:
     - name: Download latest release metadata
       uri:
+        timeout: 30
         url: https://api.github.com/repos/lsd-rs/lsd/releases/latest
         return_content: yes
       register: lsd_latest_version_metadata
@@ -20,6 +21,7 @@
       get_url:
         url: "https://github.com/lsd-rs/lsd/releases/download/v{{ lsd_latest_version }}/lsd-musl_{{ lsd_latest_version }}_amd64.deb"
         dest: "/tmp/lsd-musl_{{ lsd_latest_version }}_amd64.deb"
+        timeout: 30
       register: download
       until: download is success
       retries: 3

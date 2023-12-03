@@ -6,6 +6,7 @@
   tasks:
     - name: Download latest release metadata
       uri:
+        timeout: 30
         url: https://api.github.com/repos/dandavison/delta/releases/latest
         return_content: yes
       register: latest_version_metadata
@@ -30,6 +31,7 @@
       get_url:
         url: "https://github.com/dandavison/delta/releases/latest/download/git-delta_{{ latest_version }}_amd64.deb"
         dest: /tmp/delta.deb
+        timeout: 30
       register: download
       until: download is success
       retries: 3

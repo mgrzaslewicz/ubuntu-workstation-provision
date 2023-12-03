@@ -13,6 +13,7 @@
     - name: Download GPG key if needed
       when: not gpg_key.stat.exists
       get_url:
+        timeout: 60
         url: https://packages.microsoft.com/keys/microsoft.asc
         dest: /tmp/microsoft.asc
     - name: Import GPG key

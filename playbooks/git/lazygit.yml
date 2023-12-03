@@ -6,6 +6,7 @@
   tasks:
     - name: Download latest release metadata
       uri:
+        timeout: 30
         url: https://api.github.com/repos/jesseduffield/lazygit/releases/latest
         return_content: yes
       register: lazygit_latest_version_metadata
@@ -18,6 +19,7 @@
     - name: Download lazygit {{ lazygit_latest_version }}
       get_url:
         url: "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_{{ lazygit_latest_version }}_Linux_x86_64.tar.gz"
+        timeout: 30
         dest: /tmp/lazygit.tar.gz
       register: download
       until: download is success

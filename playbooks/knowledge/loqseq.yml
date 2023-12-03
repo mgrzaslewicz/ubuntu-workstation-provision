@@ -6,6 +6,7 @@
   tasks:
     - name: Download latest release metadata
       uri:
+        timeout: 30
         url: https://api.github.com/repos/logseq/logseq/releases/latest
         return_content: yes
       register: logseq_latest_version_metadata
@@ -30,6 +31,7 @@
     - name: Download logseq {{ logseq_latest_version }}
       become: true
       get_url:
+        timeout: 60
         url: "https://github.com/logseq/logseq/releases/download/{{ logseq_latest_version }}/Logseq-linux-x64-{{ logseq_latest_version }}.AppImage"
         dest: /usr/local/bin/Logseq-linux-x64-{{ logseq_latest_version }}.AppImage
       when: logseq_update_available
