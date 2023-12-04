@@ -1,5 +1,6 @@
-# dev-machine-provision
-Set of ansible playbooks to provision a development machine in a few minutes.
+# ubuntu-workstation-provision
+## WaC - Workstation as a Code
+Set of ansible playbooks to provision ubuntu workstation in a few minutes.
 
 # Usage
 ## Run from the sources directory
@@ -33,7 +34,7 @@ export TAGS="java,git" && export SKIP_TAGS="graphical" && provision
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/jammy64"
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "/full/path/to/dev-machine-provision/playbooks/provision.yml"
+    ansible.playbook = "/full/path/to/ubuntu-workstation-provision/playbooks/provision.yml"
     #ansible.skip_tags = "graphical"
   end
   config.vm.network :forwarded_port, guest: 443, host: 443
