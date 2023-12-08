@@ -3,6 +3,7 @@
 - import_playbook: install-apt-packages.yml
 - import_playbook: install-snap-packages.yml
 - import_playbook: upgrade-python-packages.yml
+- import_playbook: add-self-symlink-to-bin.yml
 
 - import_playbook: git/git.yml
 - import_playbook: git/git-global-config.yml
