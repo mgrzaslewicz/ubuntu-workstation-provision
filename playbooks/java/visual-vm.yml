@@ -1,12 +1,12 @@
 ---
-- name: Install JDK tools
+- name: Install visual-vm
   hosts: all
   gather_facts: False
-  tags: java,jdk-tools
+  tags: java,visual-vm
   tasks:
-    - name: Install visualvm
+    - name: Install visual-vm
       become: true
-      tags: graphical,java,visualvm
+      tags: graphical,java,visual-vm
       apt:
         state: present
         name: visualvm
