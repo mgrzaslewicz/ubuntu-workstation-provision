@@ -15,15 +15,17 @@
     - name: Parse latest version tag
       set_fact:
         latest_version: "{{ latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
-    - name: Check if async-profiler is installed
+    - name: Check already installed version
+      shell:
+        cmd: ls /opt/async-profiler/.v* | sed 's/.*\.v//'
+      register: installed_version
+      changed_when: false
+      ignore_errors: true
+    - name: Check if expected async-profiler {{ latest_version }} is installed
       stat:
-        path: /opt/async-profiler
-      register: asprof_installed
-    - name: Check if expected async-profiler version is installed
-      stat:
-        path: /opt/async/profiler/.v{{ latest_version }}
+        path: /opt/async-profiler/.v{{ latest_version }}
       register: latest_version_installed
-    - name: Download async-profiler
+    - name: Download async-profiler {{ latest_version }}
       get_url:
         url: https://github.com/async-profiler/async-profiler/releases/latest/download/async-profiler-{{ latest_version }}-linux-x64.tar.gz
         dest: /tmp/async-profiler-{{ latest_version }}-linux-x64.tar.gz
@@ -33,13 +35,14 @@
       retries: 3
       delay: 5
       changed_when: false
-    - name: Delete old async-profiler
-      when: asprof_installed.stat.exists and not latest_version_installed.stat.exists
+      when: not latest_version_installed.stat.exists
+    - name: Delete old async-profiler {{ installed_version.stdout }}
+      when: not latest_version_installed.stat.exists
       become: true
       file:
         path: /opt/async-profiler
         state: absent
-    - name: Unpack async-profiler
+    - name: Unpack async-profiler {{ latest_version }}
       become: true
       when: not latest_version_installed.stat.exists
       changed_when: false
@@ -61,7 +64,7 @@
         owner: root
         group: root
         recurse: true
-    - name: Create version file
+    - name: Create version file {{ latest_version }}
       become: true
       when: not latest_version_installed.stat.exists
       file:
