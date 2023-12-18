@@ -83,3 +83,13 @@
         mode: 0755
         owner: root
         group: root
+    - name: Set perf_event_paranoid to 1
+      become: true
+      copy:
+        content: 1
+        dest: /proc/sys/kernel/perf_event_paranoid
+    - name: Set kptr_restrict to 0
+      become: true
+      copy:
+        content: 0
+        dest: /proc/sys/kernel/kptr_restrict
