@@ -85,11 +85,15 @@
         group: root
     - name: Set perf_event_paranoid to 1
       become: true
-      copy:
-        content: 1
-        dest: /proc/sys/kernel/perf_event_paranoid
+      sysctl:
+        name: kernel.perf_event_paranoid
+        value: 1
+        state: present
+        reload: yes
     - name: Set kptr_restrict to 0
       become: true
-      copy:
-        content: 0
-        dest: /proc/sys/kernel/kptr_restrict
+      sysctl:
+        name: kernel.kptr_restrict
+        value: 0
+        state: present
+        reload: yes
