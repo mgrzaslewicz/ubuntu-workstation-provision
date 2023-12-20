@@ -16,17 +16,17 @@ SKIP_TAGS="graphical,java" ./provision.sh
 
 ### Run when 'provision.sh' is on the path
 ```bash
-export SKIP_TAGS="graphical,java" && provision
+SKIP_TAGS="graphical,java" provision
 ```
 
 ### Include only playbooks with tags
 ```bash
-export TAGS="java,git" && provision
+TAGS="java,git" provision
 ```
 
 ### Include and exclude playbooks with tags
 ```bash
-export TAGS="java,git" && export SKIP_TAGS="graphical" && provision
+TAGS="java,git" SKIP_TAGS="graphical" provision
 ```
 
 ## Example with vagrant
