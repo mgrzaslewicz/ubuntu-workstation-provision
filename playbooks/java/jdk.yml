@@ -20,6 +20,8 @@
         - openjdk-17-source
         - openjdk-19-jdk
         - openjdk-19-source
+        - openjdk-21-jdk
+        - openjdk-21-source
     - name: Check if java 14 is installed
       stat:
         path: '{{ jdk_14_dir }}'
