@@ -31,6 +31,7 @@
       args:
         executable: /bin/bash
       register: jenv_add
+      failed_when: "'not a valid path to java installation' in jenv_add.stdout"
       changed_when: "'already present' not in jenv_add.stdout"
       loop:
         - /usr/lib/jvm/java-1.8.0-openjdk-amd64
