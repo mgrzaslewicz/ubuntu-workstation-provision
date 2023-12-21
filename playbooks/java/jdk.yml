@@ -2,9 +2,9 @@
 - name: Install JDK
   hosts: all
   gather_facts: False
-  tags: java
+  tags: java,jvm
   vars:
-    jdk_14_dir: /usr/lib/jvm/openjdk-14
+    jdk_14_dir: /usr/lib/jvm/jdk-14
   tasks:
     - name: Install multiple JDKs
       become: true
@@ -22,15 +22,15 @@
         - openjdk-19-source
     - name: Check if java 14 is installed
       stat:
-          path: '{{ jdk_14_dir }}'
+        path: '{{ jdk_14_dir }}'
       register: java_14
       changed_when: false
     - name: Download java 14
       when: not java_14.stat.exists
       get_url:
-          url: https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz
-          dest: /tmp/openjdk-14_linux-x64_bin.tar.gz
-          timeout: 60
+        url: https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz
+        dest: /tmp/openjdk-14_linux-x64_bin.tar.gz
+        timeout: 60
       register: download
       until: download is success
       retries: 3
@@ -40,12 +40,7 @@
       when: not java_14.stat.exists
       become: true
       unarchive:
-          src: /tmp/openjdk-14_linux-x64_bin.tar.gz
-          dest: /usr/lib/jvm
-          remote_src: yes
-          creates: /usr/lib/jvm/jdk-14
-    - name: Move java 14 to /usr/lib/jvm/openjdk-14
-      when: not java_14.stat.exists
-      become: true
-      shell: 'mv /usr/lib/jvm/jdk-14 {{ jdk_14_dir }}'
-      changed_when: false
+        src: /tmp/openjdk-14_linux-x64_bin.tar.gz
+        dest: /usr/lib/jvm
+        remote_src: yes
+        creates: '{{ jdk_14_dir }}'
