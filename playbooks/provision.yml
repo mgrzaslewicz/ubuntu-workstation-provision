@@ -32,6 +32,7 @@
 - import_playbook: java/visual-vm.yml
 
 - import_playbook: media/foobar2000.yml
+- import_playbook: media/spotify.yml
 
 - import_playbook: python/python3.yml
 - import_playbook: python/pipx.yml
