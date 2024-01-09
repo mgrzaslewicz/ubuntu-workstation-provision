@@ -1,13 +1,21 @@
 ---
 - import_playbook: upgrade-system.yml
 - import_playbook: install-apt-packages.yml
-- import_playbook: install-snap-packages.yml
 - import_playbook: upgrade-python-packages.yml
 - import_playbook: add-self-symlink-to-bin.yml
+
+- import_playbook: communicator/signal.yml
+- import_playbook: communicator/zoom/zoom.yml
+
+- import_playbook: editor/vim/vim.yml
+- import_playbook: editor/vim/vim-plug.yml
+- import_playbook: editor/vim/neovim.yml
 
 - import_playbook: git/git.yml
 - import_playbook: git/git-global-config.yml
 - import_playbook: git/lazygit.yml
+
+- import_playbook: ide/intellij.yml
 
 - import_playbook: knowledge/cheat.yml
 - import_playbook: knowledge/logseq.yml
@@ -23,6 +31,8 @@
 - import_playbook: java/jenv.yml
 - import_playbook: java/mvnvm.yml
 - import_playbook: java/visual-vm.yml
+
+- import_playbook: media/foobar2000.yml
 
 - import_playbook: docker/docker.yml
 - import_playbook: docker/docker-registry.yml
@@ -44,15 +54,12 @@
 - import_playbook: various/lsd.yml
 - import_playbook: various/mcfly.yml
 - import_playbook: various/mcfly-zsh.yml
+- import_playbook: various/postman.yml
 - import_playbook: various/viddy.yml
-- import_playbook: various/zoom/zoom.yml
+- import_playbook: various/yq.yml
 - import_playbook: various/zoxide.yml
 
 - import_playbook: dotfiles/home-dir-as-git-repository.yml
-
-- import_playbook: vim/vim.yml
-- import_playbook: vim/vim-plug.yml
-- import_playbook: vim/neovim.yml
 
 
 # TODO

@@ -2,7 +2,7 @@
 - name: Install vim
   hosts: all
   gather_facts: False
-  tags: vim
+  tags: editor,vim
   tasks:
     - name: Install vim
       become: true

@@ -1,0 +1,11 @@
+---
+- name: Install intellij
+  hosts: all
+  gather_facts: False
+  tags: graphical,ide,intellij
+  tasks:
+    - name: Install intellij
+      become: true
+      community.general.snap:
+        name: intellij-idea-ultimate
+        classic: true

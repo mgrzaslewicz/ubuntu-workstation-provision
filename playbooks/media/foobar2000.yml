@@ -1,0 +1,10 @@
+---
+- name: Install foobar2000
+  hosts: all
+  gather_facts: False
+  tags: graphical,media,foobar2000
+  tasks:
+    - name: Install foobar2000
+      become: true
+      community.general.snap:
+        name: foobar2000

@@ -1,0 +1,10 @@
+---
+- name: Install spotify
+  hosts: all
+  gather_facts: False
+  tags: graphical,media,spotify
+  tasks:
+    - name: Install spotify
+      become: true
+      community.general.snap:
+        name: spotify
