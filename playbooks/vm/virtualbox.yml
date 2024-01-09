@@ -1,0 +1,10 @@
+---
+- name: Install virtualbox
+  hosts: all
+  gather_facts: False
+  tags: vm,virtualbox
+  tasks:
+    - name: Install virtualbox
+      become: true
+      apt:
+        name: virtualbox

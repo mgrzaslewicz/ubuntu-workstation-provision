@@ -62,6 +62,9 @@
 - import_playbook: various/yq.yml
 - import_playbook: various/zoxide.yml
 
+- import_playbook: vm/vagrant.yml
+- import_playbook: vm/virtualbox.yml
+
 - import_playbook: dotfiles/home-dir-as-git-repository.yml
 
 

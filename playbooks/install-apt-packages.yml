@@ -31,8 +31,6 @@
         - tmuxinator
         - unrar
         - unzip
-        - vagrant
-        - virtualbox
         - yarn
         - zbar-tools # to scan QR codes from image or camera
     - name: Install apt graphical packages
