@@ -1,7 +1,6 @@
 ---
 - import_playbook: upgrade-system.yml
 - import_playbook: install-apt-packages.yml
-- import_playbook: upgrade-python-packages.yml
 - import_playbook: add-self-symlink-to-bin.yml
 
 - import_playbook: communicator/signal.yml
@@ -33,6 +32,9 @@
 - import_playbook: java/visual-vm.yml
 
 - import_playbook: media/foobar2000.yml
+
+- import_playbook: python/python3.yml
+- import_playbook: python/pipx.yml
 
 - import_playbook: docker/docker.yml
 - import_playbook: docker/docker-registry.yml

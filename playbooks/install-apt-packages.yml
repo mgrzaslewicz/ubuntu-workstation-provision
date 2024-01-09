@@ -25,9 +25,6 @@
         - nmap
         - oathtool # 2FA code, e.g. oathtool -b --totp 'secret code' | xclip -sel clip
         - paprefs # to have virtual device capable of streaming via multiple physical devices
-        - python3
-        - python3-pip
-        - pipx
         - snap
         - speech-dispatcher # for speaking exit code in terminal of last executed command
         - tmux

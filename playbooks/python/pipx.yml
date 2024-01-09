@@ -4,6 +4,10 @@
   gather_facts: False
   tags: python,pipx
   tasks:
+    - name: Install pipx
+      become: true
+      apt:
+        name: pipx
     - name: Upgrade outdated packages with pipx
       shell: pipx upgrade-all
       register: result
