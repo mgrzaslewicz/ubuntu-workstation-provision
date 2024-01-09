@@ -1,0 +1,10 @@
+---
+- name: Install crudini
+  hosts: all
+  gather_facts: False
+  tags: crudini
+  tasks:
+    - name: Install crudini
+      become: true
+      apt:
+        name: crudini

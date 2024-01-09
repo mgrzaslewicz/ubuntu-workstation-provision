@@ -1,0 +1,10 @@
+---
+- name: Install yakuake
+  hosts: all
+  gather_facts: False
+  tags: terminal,graphical,yakuake
+  tasks:
+    - name: Install yakuake
+      become: true
+      apt:
+        name: yakuake

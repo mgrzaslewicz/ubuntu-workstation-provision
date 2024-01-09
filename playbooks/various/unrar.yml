@@ -1,0 +1,10 @@
+---
+- name: Install unrar
+  hosts: all
+  gather_facts: False
+  tags: unrar
+  tasks:
+    - name: Install unrar
+      become: true
+      apt:
+        name: unrar

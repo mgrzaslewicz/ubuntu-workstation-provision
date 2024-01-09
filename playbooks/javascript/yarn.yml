@@ -1,0 +1,10 @@
+---
+- name: Install yarn
+  hosts: all
+  gather_facts: False
+  tags: javascript,yarn
+  tasks:
+    - name: Install yarn
+      become: true
+      apt:
+        name: yarn

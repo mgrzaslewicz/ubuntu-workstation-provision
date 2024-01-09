@@ -1,0 +1,10 @@
+---
+- name: Install zbar-tools
+  hosts: all
+  gather_facts: False
+  tags: zbar-tools
+  tasks:
+    - name: Install zbar-tools
+      become: true
+      apt:
+        name: zbar-tools

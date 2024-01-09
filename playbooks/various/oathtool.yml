@@ -1,0 +1,10 @@
+---
+- name: Install oathtool
+  hosts: all
+  gather_facts: False
+  tags: oathtool
+  tasks:
+    - name: Install oathtool
+      become: true
+      apt:
+        name: oathtool

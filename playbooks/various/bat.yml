@@ -1,0 +1,10 @@
+---
+- name: Install bat
+  hosts: all
+  gather_facts: False
+  tags: bat
+  tasks:
+    - name: Install bat
+      become: true
+      apt:
+        name: bat

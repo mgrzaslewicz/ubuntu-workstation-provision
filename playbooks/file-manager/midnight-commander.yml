@@ -1,0 +1,10 @@
+---
+- name: Install midnight-commander
+  hosts: all
+  gather_facts: False
+  tags: file-manager,midnight-commander
+  tasks:
+    - name: Install midnight-commander
+      become: true
+      apt:
+        name: mc

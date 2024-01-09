@@ -1,0 +1,10 @@
+---
+- name: Install paprefs
+  hosts: all
+  gather_facts: False
+  tags: media,paprefs
+  tasks:
+    - name: Install paprefs
+      become: true
+      apt:
+        name: paprefs

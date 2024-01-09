@@ -17,22 +17,7 @@
         state: present
         name: '{{ item }}'
       loop:
-        - bat
-        - hexyl # hex viewer https://github.com/sharkdp/hexyl
-        - crudini # to manipulate ini files easily
-        - fd-find # to find files easily
-        - mc
-        - nmap
-        - oathtool # 2FA code, e.g. oathtool -b --totp 'secret code' | xclip -sel clip
-        - paprefs # to have virtual device capable of streaming via multiple physical devices
         - snap
-        - speech-dispatcher # for speaking exit code in terminal of last executed command
-        - tmux
-        - tmuxinator
-        - unrar
-        - unzip
-        - yarn
-        - zbar-tools # to scan QR codes from image or camera
     - name: Install apt graphical packages
       become: true
       tags: graphical
@@ -49,4 +34,3 @@
         - kwin-bismuth # tiling window management script for kde
         - wine
         - xclip
-        - yakuake

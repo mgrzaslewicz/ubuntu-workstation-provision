@@ -1,0 +1,10 @@
+---
+- name: Install tmuxinator
+  hosts: all
+  gather_facts: False
+  tags: tmuxinator
+  tasks:
+    - name: Install tmuxinator
+      become: true
+      apt:
+        name: tmuxinator

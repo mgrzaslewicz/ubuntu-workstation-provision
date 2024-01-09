@@ -1,0 +1,10 @@
+---
+- name: Install tmux
+  hosts: all
+  gather_facts: False
+  tags: tmux
+  tasks:
+    - name: Install tmux
+      become: true
+      apt:
+        name: tmux

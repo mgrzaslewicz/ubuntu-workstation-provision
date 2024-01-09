@@ -1,0 +1,10 @@
+---
+- name: Install speech-dispatcher
+  hosts: all
+  gather_facts: False
+  tags: terminal,speech-dispatcher
+  tasks:
+    - name: Install speech-dispatcher
+      become: true
+      apt:
+        name: speech-dispatcher

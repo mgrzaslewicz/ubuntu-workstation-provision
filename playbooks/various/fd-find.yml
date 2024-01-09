@@ -1,0 +1,10 @@
+---
+- name: Install fd-find
+  hosts: all
+  gather_facts: False
+  tags: fd-find
+  tasks:
+    - name: Install fd-find
+      become: true
+      apt:
+        name: fd-find

@@ -1,0 +1,10 @@
+---
+- name: Install hexyl
+  hosts: all
+  gather_facts: False
+  tags: hexyl
+  tasks:
+    - name: Install hexyl
+      become: true
+      apt:
+        name: hexyl

@@ -1,0 +1,10 @@
+---
+- name: Install unzip
+  hosts: all
+  gather_facts: False
+  tags: unzip
+  tasks:
+    - name: Install unzip
+      become: true
+      apt:
+        name: unzip
