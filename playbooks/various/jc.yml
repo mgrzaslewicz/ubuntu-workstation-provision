@@ -1,0 +1,10 @@
+---
+- name: Install jc, converter to json
+  hosts: all
+  tags: jc
+  gather_facts: False
+  tasks:
+    - name: Install jc
+      apt:
+        name: jc
+        state: present
