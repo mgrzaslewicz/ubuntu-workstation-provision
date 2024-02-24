@@ -1,0 +1,10 @@
+---
+- name: Install npm
+  hosts: all
+  gather_facts: False
+  tags: javascript,npm
+  tasks:
+    - name: Install npm
+      become: true
+      apt:
+        name: npm

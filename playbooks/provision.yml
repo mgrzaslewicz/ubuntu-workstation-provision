@@ -49,6 +49,7 @@
 - import_playbook: docker/docker-registry.yml
 - import_playbook: docker/lazydocker.yml
 
+- import_playbook: javascript/npm.yml
 - import_playbook: javascript/nvm.yml
 - import_playbook: javascript/nvm-zsh.yml
 - import_playbook: javascript/yarn.yml
