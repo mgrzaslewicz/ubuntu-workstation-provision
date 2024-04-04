@@ -1,0 +1,47 @@
+---
+- name: Install gron, converter to json
+  hosts: all
+  tags: gron
+  gather_facts: False
+  become: True
+  tasks:
+    - name: Download latest release metadata
+      uri:
+        timeout: 30
+        url: https://api.github.com/repos/tomnomnom/gron/releases/latest
+        return_content: yes
+      register: gron_latest_version_metadata
+      until: gron_latest_version_metadata is success
+      retries: 3
+      delay: 5
+      changed_when: false
+    - name: Parse latest version tag
+      set_fact:
+        gron_latest_version: "{{ gron_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
+    - name: Download gron {{ gron_latest_version }}
+      get_url:
+        url: "https://github.com/tomnomnom/gron/releases/download/v{{ gron_latest_version }}/gron-linux-amd64-{{ gron_latest_version }}.tgz"
+        dest: /tmp/gron.tgz
+        timeout: 30
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
+      changed_when: false
+    - name: Remove temp binary if present
+      file:
+        path: /tmp/gron
+        state: absent
+      changed_when: false
+    - name: Unpack gron
+      unarchive:
+        src: /tmp/gron.tgz
+        dest: /tmp
+        remote_src: yes
+      changed_when: false
+    - name: Copy gron to /usr/local/bin
+      become: true
+      copy:
+        src: /tmp/gron
+        dest: /usr/local/bin/gron
+        mode: 0701
