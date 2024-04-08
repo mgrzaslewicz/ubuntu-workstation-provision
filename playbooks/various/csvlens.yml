@@ -1,0 +1,10 @@
+---
+- name: Install csvlens
+  hosts: all
+  tags: csvlens
+  gather_facts: False
+  tasks:
+    - name: Install csvlens
+      shell: cargo install csvlens
+      register: result
+      changed_when: "'already installed' not in result.stdout"

@@ -65,6 +65,7 @@
 - import_playbook: various/bat.yml
 - import_playbook: various/broot.yml
 - import_playbook: various/crudini.yml # to manipulate ini files easily
+- import_playbook: various/csvlens.yml
 - import_playbook: various/delta.yml
 - import_playbook: various/fd-find.yml
 - import_playbook: various/gron.yml
