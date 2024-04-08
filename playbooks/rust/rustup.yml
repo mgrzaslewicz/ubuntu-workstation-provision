@@ -1,0 +1,21 @@
+---
+- name: Install rustup
+  hosts: all
+  tags: rust
+  gather_facts: False
+  tasks:
+    - name: Download rustup-init
+      get_url:
+        url: "https://sh.rustup.rs"
+        dest: /tmp/rustup-init
+        timeout: 30
+        force: true
+        mode: 0700
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
+      changed_when: false
+    - name: Install rustup
+      shell: /tmp/rustup-init -y
+      changed_when: false
