@@ -19,7 +19,7 @@
         viddy_latest_version: "{{ viddy_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
     - name: Download viddy {{ viddy_latest_version }}
       get_url:
-        url: "https://github.com/sachaos/viddy/releases/download/v{{ viddy_latest_version }}/viddy_Linux_x86_64.tar.gz"
+        url: "https://github.com/sachaos/viddy/releases/download/v{{ viddy_latest_version }}/viddy-v{{ viddy_latest_version }}-linux-x86_64.tar.gz"
         dest: /tmp/viddy.tar.gz
         timeout: 30
       register: download
