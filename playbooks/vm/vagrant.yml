@@ -1,9 +1,19 @@
 ---
 - name: Install vagrant
   hosts: all
-  gather_facts: False
+  gather_facts: True
   tags: vm,vagrant
   tasks:
+    - name: Install vagrant apt key
+      become: true
+      apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        state: present
+    - name: Add vagrant apt repository
+      become: true
+      apt_repository:
+        repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+        state: present
     - name: Install vagrant
       become: true
       apt:
