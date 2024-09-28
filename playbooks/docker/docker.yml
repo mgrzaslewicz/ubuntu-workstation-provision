@@ -19,8 +19,8 @@
         name: "{{ansible_env.USER}}"
         groups: docker
         append: true
-    - name: Install docker-compose
+    - name: Install docker-compose-v2
       become: true
       apt:
         state: present
-        name: docker-compose
+        name: docker-compose-v2
