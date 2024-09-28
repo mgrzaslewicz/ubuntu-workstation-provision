@@ -8,12 +8,17 @@
       apt:
         state: present
         name: docker.io
+    - name: Install dockerx plugin
+      become: true
+      apt:
+        state: present
+        name: docker-buildx
     - name: Add docker group
       become: true
       group:
         name: docker
         state: present
-    - name: Add current user to docker group
+    - name: Add current user to docker group so 'sudo' is not needed for every docker command
       become: true
       user:
         name: "{{ansible_env.USER}}"
