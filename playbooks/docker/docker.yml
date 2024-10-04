@@ -3,16 +3,55 @@
   hosts: all
   tags: docker
   tasks:
-    - name: Install docker
+    - name: Create docker keyring directory
+      become: true
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: 0755
+    - name: Add Docker's official GPG key
+      become: true
+      get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: 0644
+    - name: Calculate docker repository url
+      shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable"
+      register: docker_repository_url
+      changed_when: false
+    - name: Print docker repository url
+      debug:
+        msg: "{{ docker_repository_url.stdout }}"
+    - name: Add Docker repository
+      become: true
+      apt_repository:
+        repo: "{{ docker_repository_url.stdout }}"
+        update_cache: yes
+    - name: Install docker-ce
       become: true
       apt:
         state: present
-        name: docker.io
-    - name: Install dockerx plugin
+        name: docker-ce
+    - name: Install docker-ce-cli
       become: true
       apt:
         state: present
-        name: docker-buildx
+        name: docker-ce-cli
+    - name: Install containerd.io
+      become: true
+      apt:
+        state: present
+        name: containerd.io
+    - name: Install docker-buildx-plugin
+      become: true
+      apt:
+        state: present
+        name: docker-buildx-plugin
+    - name: Install docker-compose-plugin
+      become: true
+      apt:
+        state: present
+        name: docker-compose-plugin
     - name: Add docker group
       become: true
       group:
@@ -24,8 +63,3 @@
         name: "{{ansible_env.USER}}"
         groups: docker
         append: true
-    - name: Install docker-compose-v2
-      become: true
-      apt:
-        state: present
-        name: docker-compose-v2
