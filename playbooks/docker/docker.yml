@@ -52,11 +52,6 @@
       apt:
         state: present
         name: docker-compose-plugin
-    - name: Add docker group
-      become: true
-      group:
-        name: docker
-        state: present
     - name: Add current user to docker group so 'sudo' is not needed for every docker command
       become: true
       user:
