@@ -14,6 +14,7 @@ if [[ -n $TAGS ]]; then
 fi
 
 ansible-playbook -K \
+"$@" \
 --connection=local \
 --inventory 127.0.0.1, \
 ${SKIP_TAGS_OPTION} \
