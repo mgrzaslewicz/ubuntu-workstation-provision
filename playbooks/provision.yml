@@ -68,6 +68,7 @@
 - import_playbook: various/csvlens.yml
 - import_playbook: various/delta.yml
 - import_playbook: various/fd-find.yml
+- import_playbook: various/fzf.yml
 - import_playbook: various/gron.yml
 - import_playbook: various/jc.yml
 - import_playbook: various/hexyl.yml  # hex viewer https://github.com/sharkdp/hexyl
