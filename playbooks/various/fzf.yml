@@ -1,0 +1,10 @@
+---
+- name: Install fzf
+  hosts: all
+  gather_facts: False
+  tags: fzf
+  tasks:
+    - name: Install fzf
+      become: true
+      apt:
+        name: fzf
