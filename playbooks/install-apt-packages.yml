@@ -18,6 +18,9 @@
         name: '{{ item }}'
       loop:
         - snap
+    - name: Update all snap packages
+      become: true
+      command: snap refresh
     - name: Install apt graphical packages
       become: true
       tags: graphical
