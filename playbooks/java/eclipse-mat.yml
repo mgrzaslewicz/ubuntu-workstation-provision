@@ -3,7 +3,7 @@
   gather_facts: False
   tags: graphical, eclipse-mat, java
   vars:
-    download_link: https://eclipse.mirror.wearetriple.com//mat/1.15.0/rcp/MemoryAnalyzer-1.15.0.20231206-linux.gtk.x86_64.zip
+    download_link: https://eclipse.mirror.liteserver.nl/mat/1.16.1/rcp/MemoryAnalyzer-1.16.1.20250109-linux.gtk.x86_64.zip
   tasks:
     - name: Extract version from download link
       set_fact:
