@@ -2,10 +2,12 @@
 - name: Upgrade ubuntu
   hosts: all
   gather_facts: False
+  tags: ubuntu
   tasks:
     - name: Upgrade ubuntu
       become: true
       apt:
         upgrade: dist
         autoclean: yes
+        autoremove: true
         update_cache: yes
