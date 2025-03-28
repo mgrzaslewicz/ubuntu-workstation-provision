@@ -13,6 +13,12 @@ if [[ -n $TAGS ]]; then
   TAGS_OPTION="--tags ${TAGS}"
 fi
 
+if ! command -v ansible-playbook &> /dev/null
+then
+  echo "Ansible is not installed, installing it now..."
+  sudo apt-get update && sudo apt-get install -y ansible
+fi
+
 ansible-playbook -K \
 "$@" \
 --connection=local \
