@@ -1,0 +1,13 @@
+---
+- name: Install chezmoi for managing dotfiles
+  hosts: all
+  gather_facts: False
+  tags: dotfiles,chezmoi
+  tasks:
+    - name: Install chezmoi
+      become: true
+      community.general.snap:
+        name: chezmoi
+        classic: true
+    - name: Install dotfiles
+      shell: 'chezmoi init https://github.com/mgrzaslewicz/dotfiles.git'
