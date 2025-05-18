@@ -39,7 +39,7 @@
         - /usr/lib/jvm/jdk-14
         - /usr/lib/jvm/java-1.17.0-openjdk-amd64
         - /usr/lib/jvm/java-1.21.0-openjdk-amd64
-        - /usr/lib/jvm/java-1.23.0-openjdk-amd64
+        - /usr/lib/jvm/java-1.24.0-openjdk-amd64
     - name: Enable jenv export plugin
       shell: eval "$(jenv init -)" && jenv enable-plugin export
       register: jenv_enable_plugin
