@@ -16,4 +16,4 @@
         chezmoi_status.rc != 0 and
         ("already exists" not in chezmoi_status.stderr | lower)
     - name: Apply dotfiles
-      shell: 'chezmoi update'
+      shell: 'chezmoi --force update'
