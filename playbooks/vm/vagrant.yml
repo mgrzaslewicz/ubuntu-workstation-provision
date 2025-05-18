@@ -4,16 +4,18 @@
   gather_facts: True
   tags: vm,vagrant
   tasks:
-    - name: Install vagrant apt key
+    - name: Download and add HashiCorp GPG key to keyring
       become: true
-      apt_key:
-        url: https://apt.releases.hashicorp.com/gpg
-        state: present
+      shell: |
+        curl -fsSL https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /etc/apt/keyrings/hashicorp.gpg
+      args:
+        creates: /etc/apt/keyrings/hashicorp.gpg
     - name: Add vagrant apt repository
       become: true
       apt_repository:
-        repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+        repo: deb [signed-by=/etc/apt/keyrings/hashicorp.gpg arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
         state: present
+        filename: hashicorp
     - name: Install vagrant
       become: true
       apt:
