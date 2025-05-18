@@ -13,7 +13,7 @@
     - name: Add vagrant apt repository
       become: true
       apt_repository:
-        repo: deb [signed-by=/etc/apt/keyrings/hashicorp.gpg arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+        repo: deb [signed-by=/etc/apt/keyrings/hashicorp.gpg arch=amd64] https://apt.releases.hashicorp.com noble main
         state: present
         filename: hashicorp
     - name: Install vagrant
