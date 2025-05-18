@@ -1,5 +1,6 @@
 ---
 - import_playbook: upgrade-system.yml
+- import_playbook: keyrings-dir.yml
 - import_playbook: install-apt-packages.yml
 - import_playbook: add-self-symlink-to-bin.yml
 

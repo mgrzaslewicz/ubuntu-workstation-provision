@@ -3,27 +3,18 @@
   gather_facts: False
   tags: javascript,yarn
   tasks:
-    - name: Create keyrings directory
-      become: true
-      file:
-        path: /etc/apt/keyrings
-        state: directory
-        mode: '0755'
-
     - name: Download and add Yarn GPG key to keyring
       become: true
       shell: |
         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarn.gpg
       args:
         creates: /etc/apt/keyrings/yarn.gpg
-
     - name: Add Yarn repository
       become: true
       apt_repository:
         repo: deb [signed-by=/etc/apt/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main
         state: present
         filename: yarn
-
     - name: Install yarn
       become: true
       apt:
