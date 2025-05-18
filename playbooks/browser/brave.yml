@@ -1,20 +1,39 @@
----
-- name: Install brave
+- name: Install Brave Browser
   hosts: all
-  gather_facts: False
-  become: true
+  become: yes
   tags: graphical, brave, browser
   tasks:
-    - name: "Add apt key"
-      apt_key:
+    - name: Install required packages
+      apt:
+        name:
+          - curl
+          - software-properties-common
         state: present
-        url: 'https://brave-browser-apt-release.s3.brave.com/brave-core.asc'
-    - name: "Add apt repository"
+        update_cache: yes
+
+    - name: Create keyrings directory
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download Brave GPG key
+      get_url:
+        url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+        dest: /etc/apt/keyrings/brave-browser-archive-keyring.gpg
+        mode: '0644'
+
+    - name: Add Brave repository
       apt_repository:
-        filename: "brave-browser"
-        repo: 'deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main'
+        repo: "deb [signed-by=/etc/apt/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
         state: present
-    - name: 'Ensure brave-browser is installed'
+        filename: brave-browser-release
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Brave browser
       apt:
         name: brave-browser
         state: present
