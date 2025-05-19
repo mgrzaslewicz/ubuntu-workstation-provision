@@ -56,3 +56,9 @@
         PATH: "{{ ansible_env.PATH }}:~/.jenv/bin"
       args:
         executable: /bin/bash
+    - name: Check default JVM version
+      shell: jenv global
+      register: jenv_global
+    - name: Set default JVM version
+      shell: jenv global 24
+      when: jenv_global.stdout != "24"
