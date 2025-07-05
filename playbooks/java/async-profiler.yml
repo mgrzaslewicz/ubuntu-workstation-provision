@@ -73,12 +73,22 @@
         mode: 0744
         owner: root
         group: root
-    - name: Create symlink to bin
+    - name: Create symlink to asprof bin
       become: true
       when: not latest_version_installed.stat.exists
       file:
         src: /opt/async-profiler/bin/asprof
         dest: /usr/local/bin/asprof
+        state: link
+        mode: 0755
+        owner: root
+        group: root
+    - name: Create symlink to jfrconv bin
+      become: true
+      when: not latest_version_installed.stat.exists
+      file:
+        src: /opt/async-profiler/bin/jfrconv
+        dest: /usr/local/bin/jfrconv
         state: link
         mode: 0755
         owner: root
