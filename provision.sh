@@ -20,6 +20,7 @@ then
 fi
 
 export ANSIBLE_BECOME_EXE=sudo.ws
+export ANSIBLE_LOG_PATH="/tmp/provision_$(date +%Y%m%d_%H%M%S).log"
 
 ansible-playbook -K \
 "$@" \
