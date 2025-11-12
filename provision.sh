@@ -19,6 +19,8 @@ then
   sudo apt-get update && sudo apt-get install -y ansible
 fi
 
+export ANSIBLE_BECOME_EXE=sudo.ws
+
 ansible-playbook -K \
 "$@" \
 --connection=local \
