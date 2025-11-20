@@ -1,48 +1,23 @@
 ---
-- name: Install JDK
+- name: Install JDKs
   hosts: all
   gather_facts: False
   tags: java,jvm
-  vars:
-    jdk_14_dir: /usr/lib/jvm/jdk-14
   tasks:
-    - name: Install multiple JDKs
-      become: true
-      apt:
-        state: present
-        name: '{{ item }}'
+    - name: Find mise binary path
+      shell: command -v mise || echo ~/.local/bin/mise
+      register: mise_path
+      changed_when: false
+    - name: Install JDK versions with mise
+      shell: "{{ mise_path.stdout }} install java@{{ item }}"
+      register: mise_install
+      changed_when: "'installed' in mise_install.stdout or 'installing' in mise_install.stdout"
       loop:
-        - openjdk-8-jdk
-        - openjdk-8-source
-        - openjdk-11-jdk
-        - openjdk-11-source
-        - openjdk-17-jdk
-        - openjdk-17-source
-        - openjdk-21-jdk
-        - openjdk-21-source
-        - openjdk-25-jdk
-        - openjdk-25-source
-    - name: Check if java 14 is installed
-      stat:
-        path: '{{ jdk_14_dir }}'
-      register: java_14
+        - 17
+        - 21
+        - 25
+    - name: Set latest JDK (25) as global default
+      shell: "{{ mise_path.stdout }} use --global java@25"
+    - name: Allow idiomatic java usage
+      shell: "{{ mise_path.stdout }} settings add idiomatic_version_file_enable_tools java"
       changed_when: false
-    - name: Download java 14
-      when: not java_14.stat.exists
-      get_url:
-        url: https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz
-        dest: /tmp/openjdk-14_linux-x64_bin.tar.gz
-        timeout: 60
-      register: download
-      until: download is success
-      retries: 3
-      delay: 5
-      changed_when: false
-    - name: Install java 14
-      when: not java_14.stat.exists
-      become: true
-      unarchive:
-        src: /tmp/openjdk-14_linux-x64_bin.tar.gz
-        dest: /usr/lib/jvm
-        remote_src: yes
-        creates: '{{ jdk_14_dir }}'

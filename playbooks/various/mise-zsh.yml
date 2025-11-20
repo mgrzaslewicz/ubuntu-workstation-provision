@@ -1,0 +1,23 @@
+---
+- name: Setup mise in zsh
+  hosts: all
+  gather_facts: False
+  tags: mise
+  tasks:
+    - name: Make sure mise.zsh is present
+      file:
+        path: "~/.oh-my-zsh/custom/mise.zsh"
+        state: touch
+        mode: 0700
+        access_time: preserve
+        modification_time: preserve
+    - name: Find mise binary path
+      shell: command -v mise || echo ~/.local/bin/mise
+      register: mise_path
+      changed_when: false
+    - name: Add mise init to zsh
+      lineinfile:
+        path: "~/.oh-my-zsh/custom/mise.zsh"
+        state: present
+        line: 'eval "$({{ mise_path.stdout }} activate zsh)"'
+
