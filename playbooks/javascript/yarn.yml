@@ -1,22 +1,19 @@
+---
 - name: Install yarn
   hosts: all
   gather_facts: False
   tags: javascript,yarn
   tasks:
-    - name: Download and add Yarn GPG key to keyring
-      become: true
-      shell: |
-        curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarn.gpg
-      args:
-        creates: /etc/apt/keyrings/yarn.gpg
-    - name: Add Yarn repository
-      become: true
-      apt_repository:
-        repo: deb [signed-by=/etc/apt/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian/ stable main
-        state: present
-        filename: yarn
-    - name: Install yarn
-      become: true
-      apt:
-        name: yarn
-        update_cache: yes
+    - name: Find mise binary path
+      shell: command -v mise || echo ~/.local/bin/mise
+      register: mise_path
+      changed_when: false
+    - name: Install latest yarn with mise
+      shell: "{{ mise_path.stdout }} install yarn@latest"
+      register: mise_install
+      changed_when: "'installed' in mise_install.stdout or 'installing' in mise_install.stdout"
+    - name: Set latest yarn as global default
+      shell: "{{ mise_path.stdout }} use --global yarn@latest"
+    - name: Allow idiomatic yarn usage
+      shell: "{{ mise_path.stdout }} settings add idiomatic_version_file_enable_tools yarn"
+      changed_when: false

@@ -8,14 +8,12 @@
       shell: command -v mise || echo ~/.local/bin/mise
       register: mise_path
       changed_when: false
-    - name: Install mise maven plugin
-      shell: "{{ mise_path.stdout }} plugins install maven"
+    - name: Install latest maven with mise
+      shell: "{{ mise_path.stdout }} install maven@latest"
       register: mise_install
-      changed_when: "'already installed' not in mise_install.stderr"
-    - name: Install maven 3 as a global default
-      shell: "{{ mise_path.stdout }} use -g maven@3"
-      register: mise_install
-      changed_when: "'bin/mvn' in mise_install.stdout" # unzipping log, e.g. 'x apache-maven-3.9.0/bin/mvn'
+      changed_when: "'installed' in mise_install.stdout or 'installing' in mise_install.stdout"
+    - name: Set latest maven as global default
+      shell: "{{ mise_path.stdout }} use --global maven@latest"
     - name: Allow idiomatic maven usage
       shell: "{{ mise_path.stdout }} settings add idiomatic_version_file_enable_tools maven"
       changed_when: false
