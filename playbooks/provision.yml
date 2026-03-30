@@ -38,8 +38,7 @@
 - import_playbook: media/paprefs.yml
 - import_playbook: media/spotify.yml
 
-- import_playbook: python/python3.yml
-- import_playbook: python/pipx.yml
+- import_playbook: python/python.yml
 
 - import_playbook: terminal/speech-dispatcher.yml # for speaking exit code in terminal of last executed command
 - import_playbook: terminal/tmux.yml
