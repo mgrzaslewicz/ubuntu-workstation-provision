@@ -8,7 +8,7 @@
       get_url:
         url: https://dystroy.org/broot/download/x86_64-linux/broot
         dest: /tmp/broot
-        mode: 0700
+        mode: 0755
         timeout: 30
       register: download
       until: download is success
@@ -20,4 +20,4 @@
       copy:
         src: /tmp/broot
         dest: /usr/local/bin/broot
-        mode: 0700
+        mode: 0755

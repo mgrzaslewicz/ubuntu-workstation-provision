@@ -8,7 +8,7 @@
       file:
         path: "~/.oh-my-zsh/custom/mise.zsh"
         state: touch
-        mode: 0700
+        mode: 0755
         access_time: preserve
         modification_time: preserve
     - name: Find mise binary path

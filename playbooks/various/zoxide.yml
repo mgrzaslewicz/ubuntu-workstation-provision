@@ -13,7 +13,7 @@
       file:
         path: "~/.oh-my-zsh/custom/zoxide.zsh"
         state: touch
-        mode: 0700
+        mode: 0755
         access_time: preserve
         modification_time: preserve
     - name: Add zsh configuration to zoxide.zsh

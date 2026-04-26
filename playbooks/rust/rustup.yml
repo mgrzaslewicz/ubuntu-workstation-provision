@@ -10,7 +10,7 @@
         dest: /tmp/rustup-init
         timeout: 30
         force: true
-        mode: 0700
+        mode: 0755
       register: download
       until: download is success
       retries: 3

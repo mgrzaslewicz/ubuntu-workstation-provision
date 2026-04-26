@@ -8,7 +8,7 @@
       get_url:
         url: 'https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh'
         dest: '/tmp/oh-my-zsh-install.sh'
-        mode: 0700
+        mode: 0755
         timeout: 30
       register: download
       until: download is success
@@ -27,7 +27,7 @@
       file:
         path: "~/.zshrc"
         state: touch
-        mode: 0700
+        mode: 0755
         access_time: preserve
         modification_time: preserve
     - name: Add oh-my-zsh variables to zshrc

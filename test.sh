@@ -1,2 +1,2 @@
 #!/bin/bash
-VAGRANT_VAGRANTFILE=test/vagrant/Vagrantfile vagrant up
+docker run --rm -v "$(pwd):/uwp" -w /uwp ubuntu:26.04 ./provision.sh

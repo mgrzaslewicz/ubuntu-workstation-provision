@@ -8,7 +8,7 @@
       get_url:
         url: https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh
         dest: /tmp/install_lazydocker.sh
-        mode: 0700
+        mode: 0755
         timeout: 30
       register: download
       until: download is success

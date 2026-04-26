@@ -8,7 +8,7 @@
       get_url:
         url: https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh
         dest: /tmp/mcfly-install.sh
-        mode: 0700
+        mode: 0755
         timeout: 30
       register: download
       until: download is success

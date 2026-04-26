@@ -43,4 +43,4 @@
       copy:
         src: /tmp/viddy
         dest: /usr/local/bin/viddy
-        mode: 0700
+        mode: 0755

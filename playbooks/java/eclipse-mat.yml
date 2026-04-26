@@ -21,7 +21,7 @@
       get_url:
         url: "{{ download_link }}"
         dest: /tmp/eclipse-mat.zip
-        mode: 0700
+        mode: 0755
         timeout: 60
       register: download
       until: download is success

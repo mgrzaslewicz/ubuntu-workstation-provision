@@ -37,4 +37,4 @@
       copy:
         src: /tmp/lazygit
         dest: /usr/local/bin/lazygit
-        mode: 0700
+        mode: 0755

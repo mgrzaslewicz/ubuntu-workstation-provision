@@ -8,12 +8,12 @@
       file:
         path: ~/.vim/autoload
         state: directory
-        mode: 0700
+        mode: 0755
     - name: Download vim-plug install script
       get_url:
         url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
         dest: /tmp/plug.vim
-        mode: 0700
+        mode: 0755
         force: true
         timeout: 30
       register: download
@@ -25,7 +25,7 @@
       copy:
         src: /tmp/plug.vim
         dest: ~/.vim/autoload/plug.vim
-        mode: 0700
+        mode: 0755
     - name: Install vim plugins
       shell: vim +'PlugInstall --sync' +qall
       args:

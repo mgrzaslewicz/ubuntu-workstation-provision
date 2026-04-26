@@ -42,7 +42,7 @@
       copy:
         src: /tmp/cheat
         dest: /usr/local/bin/cheat
-        mode: 0700
+        mode: 0755
     - name: Update cheat database
       shell:
         cmd: /usr/local/bin/cheat --update

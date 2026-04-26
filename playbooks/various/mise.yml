@@ -46,7 +46,7 @@
       get_url:
         url: "https://github.com/jdx/mise/releases/download/{{ mise_latest_version }}/install.sh"
         dest: /tmp/mise-install.sh
-        mode: 0700
+        mode: 0755
         timeout: 30
       register: download
       until: download is success
