@@ -1,0 +1,10 @@
+---
+- name: Install Dropbox
+  hosts: all
+  become: yes
+  tags: backup, dropbox, graphical
+  tasks:
+    - name: Install nautilus-dropbox
+      apt:
+        name: nautilus-dropbox
+        state: present

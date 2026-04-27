@@ -4,6 +4,8 @@
 - import_playbook: install-apt-packages.yml
 - import_playbook: add-self-symlink-to-bin.yml
 
+- import_playbook: backup/dropbox.yml
+
 - import_playbook: communicator/signal.yml
 - import_playbook: communicator/zoom/zoom.yml
 
