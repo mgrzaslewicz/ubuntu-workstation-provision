@@ -3,26 +3,16 @@
   become: yes
   tags: graphical, brave, browser
   tasks:
-    - name: Install required packages
-      apt:
-        name:
-          - curl
-          - software-properties-common
-        state: present
-        update_cache: yes
     - name: Download Brave GPG key
       get_url:
         url: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-        dest: /etc/apt/keyrings/brave-browser-archive-keyring.gpg
+        dest: /usr/share/keyrings/brave-browser-archive-keyring.gpg
         mode: '0644'
-    - name: Add Brave repository
-      apt_repository:
-        repo: "deb [signed-by=/etc/apt/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"
-        state: present
-        filename: brave-browser-release
-    - name: Update apt cache
-      apt:
-        update_cache: yes
+    - name: Download Brave repository sources file
+      get_url:
+        url: https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+        dest: /etc/apt/sources.list.d/brave-browser-release.sources
+        mode: '0644'
     - name: Install Brave browser
       apt:
         name: brave-browser
