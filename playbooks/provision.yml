@@ -36,6 +36,7 @@
 - import_playbook: java/maven.yml
 - import_playbook: java/visual-vm.yml
 
+- import_playbook: media/audacity.yml
 - import_playbook: media/foobar2000.yml
 - import_playbook: media/paprefs.yml
 - import_playbook: media/spotify.yml
