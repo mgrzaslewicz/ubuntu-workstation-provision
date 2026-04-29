@@ -1,0 +1,10 @@
+---
+- name: Install direnv
+  hosts: all
+  gather_facts: False
+  tags: direnv
+  tasks:
+    - name: Install direnv
+      become: true
+      apt:
+        name: direnv
