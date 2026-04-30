@@ -38,6 +38,7 @@
         - filezilla
         - flameshot
         - gimp
+        - gnome-disk-utility
         - graphviz # needed for intellij plugin plantUML
         - keepassxc
         - wine
