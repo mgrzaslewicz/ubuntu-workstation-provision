@@ -1,0 +1,23 @@
+---
+- name: Install niri and Dank Material Shell
+  hosts: all
+  gather_facts: False
+  tags: window-manager,niri,dms
+  tasks:
+    - name: Add Dank Linux PPA
+      become: true
+      apt_repository:
+        repo: ppa:avengemedia/danklinux
+        state: present
+    - name: Add DMS PPA
+      become: true
+      apt_repository:
+        repo: ppa:avengemedia/dms
+        state: present
+    - name: Install niri and dms
+      become: true
+      apt:
+        state: present
+        name:
+          - niri
+          - dms
