@@ -17,6 +17,16 @@
     - name: Parse latest version tag
       set_fact:
         firejail_latest_version: "{{ firejail_latest_version_metadata.json.tag_name }}"
+    - name: Check if firejail is installed
+      shell: firejail --version
+      register: firejail_check
+      failed_when: false
+      changed_when: false
+    - name: Parse installed version
+      set_fact:
+        # firejail --version gives output with multiple lines, first is `firejail version 0.9.80`
+        firejail_installed_version: "{{ firejail_check.stdout_lines[0].split(' ')[2] }}"
+      when: firejail_check.rc == 0
     - name: Download firejail {{ firejail_latest_version }}
       get_url:
         url: "https://github.com/netblue30/firejail/releases/download/{{ firejail_latest_version }}/firejail_{{ firejail_latest_version }}_1_amd64.deb"
@@ -27,7 +37,9 @@
       retries: 3
       delay: 5
       changed_when: false
+      when: firejail_check.rc != 0 or firejail_installed_version != firejail_latest_version
     - name: Install firejail
       become: true
       apt:
         deb: "/tmp/firejail_{{ firejail_latest_version }}_1_amd64.deb"
+      when: firejail_check.rc != 0 or firejail_installed_version != firejail_latest_version
