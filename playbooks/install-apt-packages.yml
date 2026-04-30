@@ -17,7 +17,13 @@
         state: present
         name: '{{ item }}'
       loop:
-        - snap
+        - snapd
+    - name: Ensure snapd is started and enabled
+      become: true
+      systemd:
+        name: snapd
+        state: started
+        enabled: yes
     - name: Update all snap packages
       become: true
       command: snap refresh
