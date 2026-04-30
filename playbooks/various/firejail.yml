@@ -43,3 +43,7 @@
       apt:
         deb: "/tmp/firejail_{{ firejail_latest_version }}_1_amd64.deb"
       when: firejail_check.rc != 0 or firejail_installed_version != firejail_latest_version
+    - name: Run firecfg
+      become: true
+      command: firecfg
+      changed_when: false
