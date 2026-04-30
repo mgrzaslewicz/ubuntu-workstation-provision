@@ -43,3 +43,7 @@ Vagrant.configure("2") do |config|
   end
 end
 ```
+
+# Manual steps
+- Edit mount points with `gnome-disk-utility`
+- Run dropbox and sign in
