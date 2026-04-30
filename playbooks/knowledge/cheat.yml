@@ -45,5 +45,5 @@
         mode: 0755
     - name: Update cheat database
       shell:
-        cmd: /usr/local/bin/cheat --update
+        cmd: yes | /usr/local/bin/cheat --update
       changed_when: false
