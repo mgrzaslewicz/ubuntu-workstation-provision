@@ -44,6 +44,7 @@
 
 - import_playbook: python/python.yml
 
+- import_playbook: terminal/alacritty.yml
 - import_playbook: terminal/direnv.yml
 - import_playbook: terminal/speech-dispatcher.yml # for speaking exit code in terminal of last executed command
 - import_playbook: terminal/tmux.yml
