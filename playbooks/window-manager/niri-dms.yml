@@ -6,14 +6,14 @@
   tasks:
     - name: Add Dank Linux PPA
       become: true
-      apt_repository:
-        repo: ppa:avengemedia/danklinux
-        state: present
+      command: add-apt-repository --yes ppa:avengemedia/danklinux
+      register: danklinux_ppa
+      changed_when: "'already exists' not in danklinux_ppa.stdout"
     - name: Add DMS PPA
       become: true
-      apt_repository:
-        repo: ppa:avengemedia/dms
-        state: present
+      command: add-apt-repository --yes ppa:avengemedia/dms
+      register: dms_ppa
+      changed_when: "'already exists' not in dms_ppa.stdout"
     - name: Install niri and dms
       become: true
       apt:
