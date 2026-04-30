@@ -2,7 +2,7 @@
 - name: Install sublime-text
   hosts: all
   gather_facts: False
-  tags: graphical,media,sublime-text
+  tags: graphical,media,sublime-text,sublime
   tasks:
     - name: Install sublime-text
       become: true

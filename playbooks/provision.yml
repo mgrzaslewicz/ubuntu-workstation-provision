@@ -9,6 +9,7 @@
 - import_playbook: communicator/signal.yml
 - import_playbook: communicator/zoom/zoom.yml
 
+- import_playbook: editor/sublime.yml
 - import_playbook: editor/vim/vim.yml
 - import_playbook: editor/vim/vim-plug.yml
 - import_playbook: editor/vim/neovim.yml
