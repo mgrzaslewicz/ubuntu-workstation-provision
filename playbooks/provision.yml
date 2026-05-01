@@ -1,5 +1,6 @@
 ---
 - import_playbook: packaging/apt.yml
+- import_playbook: packaging/flatpak.yml
 - import_playbook: packaging/snap.yml
 - import_playbook: keyrings-dir.yml
 - import_playbook: install-packages.yml

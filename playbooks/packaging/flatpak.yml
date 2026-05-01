@@ -1,0 +1,17 @@
+---
+- name: Install flatpak
+  hosts: all
+  gather_facts: False
+  tags: flatpak
+  tasks:
+    - name: Install flatpak
+      become: true
+      apt:
+        state: present
+        name: flatpak
+    - name: Add flathub repository
+      flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        method: user
