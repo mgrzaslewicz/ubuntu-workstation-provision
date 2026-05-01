@@ -1,0 +1,11 @@
+---
+- name: Install librewolf
+  hosts: all
+  gather_facts: False
+  tags: graphical,librewolf,browser
+  tasks:
+    - name: Install librewolf
+      flatpak:
+        name: io.gitlab.librewolf-community
+        state: present
+        method: user
