@@ -46,4 +46,5 @@ end
 
 # Manual steps
 - Edit mount points with `gnome-disk-utility`
+- Edit `~/.config/chezmoi/chezmoi.toml` for machine-specific settings
 - Run dropbox and sign in
