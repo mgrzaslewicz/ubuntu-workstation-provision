@@ -1,7 +1,8 @@
 ---
-- import_playbook: upgrade-system.yml
+- import_playbook: packaging/apt.yml
+- import_playbook: packaging/snap.yml
 - import_playbook: keyrings-dir.yml
-- import_playbook: install-apt-packages.yml
+- import_playbook: install-packages.yml
 - import_playbook: add-self-symlink-to-bin.yml
 
 - import_playbook: backup/dropbox.yml

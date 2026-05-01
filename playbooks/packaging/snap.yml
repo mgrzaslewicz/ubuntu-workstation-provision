@@ -1,0 +1,20 @@
+---
+- name: Setup snap
+  hosts: all
+  gather_facts: False
+  tags: snap
+  tasks:
+    - name: Install snapd
+      become: true
+      apt:
+        state: present
+        name: snapd
+    - name: Ensure snapd is started and enabled
+      become: true
+      systemd:
+        name: snapd
+        state: started
+        enabled: yes
+    - name: Update all snap packages
+      become: true
+      command: snap refresh
