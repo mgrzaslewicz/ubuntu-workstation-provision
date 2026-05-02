@@ -1,0 +1,11 @@
+---
+- name: Install double-commander
+  hosts: all
+  gather_facts: False
+  tags: file-manager,double-commander
+  tasks:
+    - name: Install double-commander
+      become: true
+      apt:
+        name: doublecmd-qt
+        state: present

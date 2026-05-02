@@ -16,6 +16,7 @@
 - import_playbook: editor/vim/vim-plug.yml
 - import_playbook: editor/vim/neovim.yml
 
+- import_playbook: file-manager/double-commander.yml
 - import_playbook: file-manager/midnight-commander.yml
 - import_playbook: window-manager/niri-dms.yml
 
