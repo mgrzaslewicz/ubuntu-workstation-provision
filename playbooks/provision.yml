@@ -62,7 +62,6 @@
 - import_playbook: javascript/yarn.yml
 
 - import_playbook: browser/brave.yml
-- import_playbook: browser/firefox.yml
 - import_playbook: browser/librewolf.yml
 - import_playbook: browser/tor.yml
 
