@@ -24,6 +24,8 @@
 - import_playbook: git/git-global-config.yml
 - import_playbook: git/lazygit.yml
 
+- import_playbook: go/go.yml
+
 - import_playbook: ide/intellij.yml
 
 - import_playbook: knowledge/cheat.yml
