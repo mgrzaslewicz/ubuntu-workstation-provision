@@ -9,3 +9,5 @@
       community.general.snap:
         name: logseq
         state: present
+    - name: Install lsq for knowledge graph CLI access
+      shell: "go install github.com/jrswab/lsq@latest"
