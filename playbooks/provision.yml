@@ -18,6 +18,7 @@
 
 - import_playbook: file-manager/double-commander.yml
 - import_playbook: file-manager/midnight-commander.yml
+- import_playbook: file-manager/yazi.yml
 - import_playbook: window-manager/niri-dms.yml
 
 - import_playbook: git/git.yml
