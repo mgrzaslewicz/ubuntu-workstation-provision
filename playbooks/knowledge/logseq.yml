@@ -4,10 +4,11 @@
   gather_facts: False
   tags: graphical,knowledge,logseq
   tasks:
-    - name: Install/refresh Logseq
-      become: true
-      community.general.snap:
-        name: logseq
+    - name: Install Logseq flatpak
+      community.general.flatpak:
+        name: com.logseq.Logseq
         state: present
+        remote: flathub
+        method: user
     - name: Install lsq for knowledge graph CLI access
       shell: "go install github.com/jrswab/lsq@latest"
