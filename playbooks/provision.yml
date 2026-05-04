@@ -67,6 +67,7 @@
 
 - import_playbook: browser/brave.yml
 - import_playbook: browser/librewolf.yml
+- import_playbook: browser/mullvad.yml
 - import_playbook: browser/tor.yml
 
 - import_playbook: rust/rustup.yml
