@@ -1,5 +1,5 @@
 ---
-- name: Install viddy
+- name: Install viddy, modern version of `watch` with time machine mode
   hosts: all
   gather_facts: False
   tags: viddy
