@@ -17,5 +17,6 @@
         - gnome-disk-utility
         - graphviz # needed for intellij plugin plantUML
         - keepassxc
+        - translate-shell # for command line language translation
         - wine
         - xclip
