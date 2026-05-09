@@ -1,0 +1,34 @@
+{
+    "name": "Ubuntu workstation provision Development",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "user1": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh"
+            },
+            "extensions": [
+                "streetsidesoftware.code-spell-checker"
+            ]
+        }
+    },
+    "remoteUser": "user1",
+    "workspaceFolder": "/workspaces/ubuntu-workstation-provision",
+    // Data Isolation: The project is bind-mounted into the container.
+    // By default, the container does not have access to the host's home directory,
+    // which prevents any AI extensions from accessing files outside this project.
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/ubuntu-workstation-provision,type=bind,consistency=cached",
+
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true,
+            "upgradePackages": true,
+            "username": "user1"
+        },
+    },
+
+    "postCreateCommand": "./provision.sh"
+}
