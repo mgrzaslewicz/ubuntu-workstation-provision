@@ -1,0 +1,5 @@
+- name: Install chezmoi
+  become: true
+  snap:
+    name: chezmoi
+    classic: yes

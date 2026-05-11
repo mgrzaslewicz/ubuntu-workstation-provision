@@ -1,0 +1,101 @@
+- name: Install bat
+  become: true
+  apt:
+    name: bat
+- name: Install broot
+  get_url:
+    url: https://dystroy.org/broot/download/x86_64-linux/broot
+    dest: /tmp/broot
+    mode: 0755
+    timeout: 30
+- name: Copy broot to /usr/local/bin
+  become: true
+  copy:
+    src: /tmp/broot
+    dest: /usr/local/bin/broot
+    mode: 0755
+- name: Install crudini
+  become: true
+  apt:
+    name: crudini
+- name: Install csvlens
+  shell: "curl -sL https://raw.githubusercontent.com/YS-L/csvlens/main/install.sh | sh"
+- name: Install delta
+  become: true
+  apt:
+    name: git-delta
+- name: Install fd-find
+  become: true
+  apt:
+    name: fd-find
+- name: Install firejail
+  become: true
+  apt:
+    name: firejail
+- name: Install fzf
+  become: true
+  apt:
+    name: fzf
+- name: Install gron
+  become: true
+  apt:
+    name: gron
+- name: Install jc
+  become: true
+  apt:
+    name: jc
+- name: Install hexyl
+  become: true
+  apt:
+    name: hexyl
+- name: Install imagemagick
+  become: true
+  apt:
+    name: imagemagick
+- name: Install lsd
+  become: true
+  apt:
+    name: lsd
+- name: Install mcfly
+  shell: "curl -sL https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --force"
+- name: Setup mcfly in zsh
+  lineinfile:
+    path: "~/.zshrc"
+    line: 'eval "$(mcfly init zsh)"'
+    state: present
+- name: Install nmap
+  become: true
+  apt:
+    name: nmap
+- name: Install postman
+  become: true
+  community.general.snap:
+    name: postman
+- name: Install oathtool
+  become: true
+  apt:
+    name: oathtool
+- name: Install unrar
+  become: true
+  apt:
+    name: unrar
+- name: Install unzip
+  become: true
+  apt:
+    name: unzip
+- name: Install viddy
+  become: true
+  apt:
+    name: viddy
+- name: Install yq
+  become: true
+  snap:
+    name: yq
+- name: Install zbar-tools
+  become: true
+  apt:
+    name: zbar-tools
+- name: Install zoxide
+  become: true
+  apt:
+    name: zoxide

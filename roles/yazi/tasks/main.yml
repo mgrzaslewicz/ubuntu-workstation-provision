@@ -1,0 +1,39 @@
+- name: Download latest release metadata
+  uri:
+    timeout: 30
+    url: https://api.github.com/repos/sxyazi/yazi/releases/latest
+    return_content: yes
+  register: yazi_latest_version_metadata
+  until: yazi_latest_version_metadata is success
+  retries: 3
+  delay: 5
+  changed_when: false
+- name: Parse latest version tag
+  set_fact:
+    yazi_latest_version: "{{ yazi_latest_version_metadata.json.tag_name }}"
+- name: Check if yazi is installed
+  shell: yazi --version
+  register: yazi_check
+  failed_when: false
+  changed_when: false
+- name: Parse installed version
+  set_fact:
+    # yazi --version gives output like `yazi 0.4.2 (8600d83 2024-11-20)`
+    yazi_installed_version: "v{{ yazi_check.stdout.split(' ')[1] }}"
+  when: yazi_check.rc == 0
+- name: Download yazi {{ yazi_latest_version }}
+  get_url:
+    url: "https://github.com/sxyazi/yazi/releases/download/{{ yazi_latest_version }}/yazi-x86_64-unknown-linux-gnu.deb"
+    dest: "/tmp/yazi_{{ yazi_latest_version }}_amd64.deb"
+    timeout: 30
+  register: download
+  until: download is success
+  retries: 3
+  delay: 5
+  changed_when: false
+  when: yazi_check.rc != 0 or yazi_installed_version != yazi_latest_version
+- name: Install yazi
+  become: true
+  apt:
+    deb: "/tmp/yazi_{{ yazi_latest_version }}_amd64.deb"
+  when: yazi_check.rc != 0 or yazi_installed_version != yazi_latest_version

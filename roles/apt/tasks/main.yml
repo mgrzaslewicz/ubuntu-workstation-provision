@@ -1,0 +1,14 @@
+- name: Upgrade apt packages
+  become: true
+  apt:
+    upgrade: dist
+    autoclean: yes
+    autoremove: true
+    update_cache: yes
+- name: Remove packages
+  become: true
+  apt:
+    state: absent
+    name: '{{ item }}'
+  loop:
+    - unattented-upgrades # to have bigger control when upgrades are run

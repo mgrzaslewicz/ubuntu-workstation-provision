@@ -1,0 +1,16 @@
+- name: Check if rustup is installed
+  shell: command -v rustup
+  register: rustup_check
+  changed_when: false
+  failed_when: false
+
+- name: Download rustup installer
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rustup-install.sh
+    mode: 0755
+  when: rustup_check.rc != 0
+
+- name: Install rustup
+  shell: /tmp/rustup-install.sh -y
+  when: rustup_check.rc != 0

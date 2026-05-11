@@ -1,0 +1,157 @@
+- name: Find mise binary path
+  shell: command -v mise || echo ~/.local/bin/mise
+  register: mise_path
+  changed_when: false
+
+- name: Install JDK versions with mise
+  shell: "{{ mise_path.stdout }} install java@{{ item }}"
+  register: mise_install
+  changed_when: "'installed' in mise_install.stdout or 'installing' in mise_install.stdout"
+  loop:
+    - 17
+    - 21
+    - 25
+
+- name: Set latest JDK (25) as global default
+  shell: "{{ mise_path.stdout }} use --global java@25"
+
+- name: Allow idiomatic java usage
+  shell: "{{ mise_path.stdout }} settings add idiomatic_version_file_enable_tools java"
+  changed_when: false
+
+- name: Install latest maven with mise
+  shell: "{{ mise_path.stdout }} install maven@latest"
+  register: mise_maven_install
+  changed_when: "'installed' in mise_maven_install.stdout or 'installing' in mise_maven_install.stdout"
+
+- name: Set latest maven as global default
+  shell: "{{ mise_path.stdout }} use --global maven@latest"
+
+- name: Allow idiomatic maven usage
+  shell: "{{ mise_path.stdout }} settings add idiomatic_version_file_enable_tools maven"
+  changed_when: false
+
+- name: Download latest async-profiler release metadata
+  uri:
+    timeout: 30
+    url: https://api.github.com/repos/async-profiler/async-profiler/releases/latest
+    return_content: yes
+  register: asprof_latest_version_metadata
+  until: asprof_latest_version_metadata is success
+  retries: 3
+  delay: 5
+
+- name: Parse latest async-profiler version tag
+  set_fact:
+    asprof_latest_version: "{{ asprof_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
+
+- name: Check already installed async-profiler version
+  shell:
+    cmd: ls /opt/async-profiler/.v* | sed 's/.*\.v//'
+  register: asprof_installed_version
+  changed_when: false
+  ignore_errors: true
+
+- name: Check if expected async-profiler {{ asprof_latest_version }} is installed
+  stat:
+    path: /opt/async-profiler/.v{{ asprof_latest_version }}
+  register: asprof_latest_version_installed
+
+- name: Download async-profiler {{ asprof_latest_version }}
+  get_url:
+    url: https://github.com/async-profiler/async-profiler/releases/latest/download/async-profiler-{{ asprof_latest_version }}-linux-x64.tar.gz
+    dest: /tmp/async-profiler-{{ asprof_latest_version }}-linux-x64.tar.gz
+    timeout: 30
+  register: download
+  until: download is success
+  retries: 3
+  delay: 5
+  changed_when: false
+  when: not asprof_latest_version_installed.stat.exists
+
+- name: Delete old async-profiler {{ asprof_installed_version.stdout }}
+  when: not asprof_latest_version_installed.stat.exists
+  become: true
+  file:
+    path: /opt/async-profiler
+    state: absent
+
+- name: Unpack async-profiler {{ asprof_latest_version }}
+  become: true
+  when: not asprof_latest_version_installed.stat.exists
+  changed_when: false
+  unarchive:
+    src: /tmp/async-profiler-{{ asprof_latest_version }}-linux-x64.tar.gz
+    dest: /tmp
+    remote_src: yes
+    creates: /tmp/async-profiler-{{ asprof_latest_version }}-linux-x64
+
+- name: Move async-profiler to /opt
+  become: true
+  when: not asprof_latest_version_installed.stat.exists
+  shell: "mv /tmp/async-profiler-{{ asprof_latest_version }}-linux-x64 /opt/async-profiler"
+
+- name: Set async-profiler permissions
+  become: true
+  when: not asprof_latest_version_installed.stat.exists
+  file:
+    path: /opt/async-profiler
+    mode: 0755
+    owner: root
+    group: root
+    recurse: true
+
+- name: Create async-profiler version file {{ asprof_latest_version }}
+  become: true
+  when: not asprof_latest_version_installed.stat.exists
+  file:
+    path: /opt/async-profiler/.v{{ asprof_latest_version }}
+    state: touch
+    mode: 0744
+    owner: root
+    group: root
+
+- name: Create symlink to asprof bin
+  become: true
+  file:
+    src: /opt/async-profiler/bin/asprof
+    dest: /usr/local/bin/asprof
+    state: link
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Create symlink to jfrconv bin
+  become: true
+  file:
+    src: /opt/async-profiler/bin/jfrconv
+    dest: /usr/local/bin/jfrconv
+    state: link
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Set perf_event_paranoid to 1
+  become: true
+  sysctl:
+    name: kernel.perf_event_paranoid
+    value: 1
+    state: present
+    reload: yes
+
+- name: Set kptr_restrict to 0
+  become: true
+  sysctl:
+    name: kernel.kptr_restrict
+    value: 0
+    state: present
+    reload: yes
+
+- name: Install visual-vm
+  become: true
+  apt:
+    state: present
+    name: visualvm
+
+- name: Install Eclipse MAT
+  include_tasks: eclipse-mat.yml

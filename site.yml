@@ -1,0 +1,38 @@
+---
+- name: Provision Ubuntu workstation
+  hosts: all
+  roles:
+    - apt
+    - flatpak
+    - snap
+    - keyrings
+    - base_packages
+    - uwp
+    - dropbox
+    - signal
+    - zoom
+    - sublime
+    - vim
+    - neovim
+    - double_commander
+    - midnight_commander
+    - yazi
+    - niri
+    - git
+    - go
+    - intellij
+    - cheat
+    - logseq
+    - zsh
+    - mise
+    - java
+    - media
+    - python
+    - terminal
+    - docker
+    - javascript
+    - browser
+    - rust
+    - various_tools
+    - vm
+    - chezmoi

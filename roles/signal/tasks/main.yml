@@ -1,0 +1,4 @@
+- name: Install signal
+  become: true
+  community.general.snap:
+    name: signal-desktop

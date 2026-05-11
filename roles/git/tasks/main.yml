@@ -1,0 +1,74 @@
+- name: Install git
+  become: true
+  apt:
+    state: present
+    name: git-all
+
+- name: Copy global .gitignore file
+  copy:
+    src: .gitignore_global
+    dest: ~/.gitignore_global
+    mode: 0644
+
+- name: Configure git to use global .gitignore file
+  git_config:
+    name: core.excludesfile
+    scope: global
+    value: '~/.gitignore_global'
+
+- name: Change default comment character to ';' in git
+  git_config:
+    name: core.commentChar
+    scope: global
+    value: ';'
+
+- name: Change pager to be non-interactive
+  git_config:
+    name: pager.branch
+    scope: global
+    value: 'false'
+
+- name: Use vim as default editor
+  git_config:
+    name: core.editor
+    scope: global
+    value: 'vim'
+
+- name: Download latest lazygit release metadata
+  uri:
+    timeout: 30
+    url: https://api.github.com/repos/jesseduffield/lazygit/releases/latest
+    return_content: yes
+  register: lazygit_latest_version_metadata
+  until: lazygit_latest_version_metadata is success
+  retries: 3
+  delay: 5
+
+- name: Parse latest lazygit version tag
+  set_fact:
+    lazygit_latest_version: "{{ lazygit_latest_version_metadata.json.tag_name | regex_replace('^v', '') }}"
+
+- name: Download lazygit {{ lazygit_latest_version }}
+  get_url:
+    url: "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_{{ lazygit_latest_version }}_Linux_x86_64.tar.gz"
+    timeout: 30
+    dest: /tmp/lazygit.tar.gz
+  register: download
+  until: download is success
+  retries: 3
+  delay: 5
+  changed_when: false
+
+- name: Unpack lazygit
+  unarchive:
+    src: /tmp/lazygit.tar.gz
+    dest: /tmp
+    remote_src: yes
+  changed_when: false
+
+- name: Copy lazygit binary
+  become: true
+  copy:
+    src: /tmp/lazygit
+    dest: /usr/local/bin/lazygit
+    mode: 0755

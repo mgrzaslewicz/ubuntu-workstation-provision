@@ -1,0 +1,8 @@
+- name: Install npm
+  become: true
+  apt:
+    name: npm
+- name: Install yarn
+  become: true
+  apt:
+    name: yarn

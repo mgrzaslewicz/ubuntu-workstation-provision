@@ -1,0 +1,6 @@
+- name: Add this repository ./provision symlink to /usr/local/bin
+  become: true
+  copy:
+    content: "#!/bin/bash\ncd {{ playbook_dir }}/..\n./provision.sh $@"
+    dest: /usr/local/bin/provision
+    mode: 0755

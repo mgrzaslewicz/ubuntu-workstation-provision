@@ -1,0 +1,8 @@
+- name: Install Logseq flatpak
+  community.general.flatpak:
+    name: com.logseq.Logseq
+    state: present
+    remote: flathub
+    method: user
+- name: Install lsq for knowledge graph CLI access
+  shell: "go install github.com/jrswab/lsq@latest"

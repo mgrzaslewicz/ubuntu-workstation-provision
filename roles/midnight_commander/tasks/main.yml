@@ -1,0 +1,4 @@
+- name: Install midnight-commander
+  become: true
+  apt:
+    name: mc

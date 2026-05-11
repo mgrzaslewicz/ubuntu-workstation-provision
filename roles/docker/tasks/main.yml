@@ -1,0 +1,13 @@
+- name: Install docker
+  become: true
+  apt:
+    name:
+      - docker.io
+      - docker-compose
+- name: Install docker-registry
+  become: true
+  apt:
+    name: docker-registry
+- name: Install lazydocker
+  shell: "curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash"
+  changed_when: true

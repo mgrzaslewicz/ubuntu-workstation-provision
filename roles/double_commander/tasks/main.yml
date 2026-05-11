@@ -1,0 +1,5 @@
+- name: Install double-commander
+  become: true
+  apt:
+    name: doublecmd-qt
+    state: present

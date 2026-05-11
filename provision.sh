@@ -28,4 +28,4 @@ ansible-playbook -K \
 --inventory 127.0.0.1, \
 ${SKIP_TAGS_OPTION} \
 ${TAGS_OPTION} \
---limit 127.0.0.1 playbooks/provision.yml
+--limit 127.0.0.1 site.yml

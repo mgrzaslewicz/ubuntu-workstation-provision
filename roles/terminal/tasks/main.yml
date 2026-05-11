@@ -1,0 +1,24 @@
+- name: Install alacritty
+  become: true
+  apt:
+    name: alacritty
+- name: Install direnv
+  become: true
+  apt:
+    name: direnv
+- name: Install speech-dispatcher
+  become: true
+  apt:
+    name: speech-dispatcher
+- name: Install tmux
+  become: true
+  apt:
+    name: tmux
+- name: Install tmuxinator
+  become: true
+  apt:
+    name: tmuxinator
+- name: Install yakuake
+  become: true
+  apt:
+    name: yakuake

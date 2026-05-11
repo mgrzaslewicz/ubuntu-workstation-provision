@@ -1,0 +1,5 @@
+- name: Install intellij
+  become: true
+  community.general.snap:
+    name: intellij-idea-ultimate
+    classic: true

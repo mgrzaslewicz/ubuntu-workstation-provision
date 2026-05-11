@@ -1,0 +1,17 @@
+- name: Install audacity
+  community.general.flatpak:
+    name: org.audacityteam.Audacity
+    state: present
+    remote: flathub
+    method: user
+- name: Install foobar2000
+  community.general.snap:
+    name: foobar2000
+- name: Install paprefs
+  become: true
+  apt:
+    name: paprefs
+- name: Install spotify
+  become: true
+  community.general.snap:
+    name: spotify

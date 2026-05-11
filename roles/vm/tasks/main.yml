@@ -1,0 +1,8 @@
+- name: Install vagrant
+  become: true
+  apt:
+    name: vagrant
+- name: Install virtualbox
+  become: true
+  apt:
+    name: virtualbox

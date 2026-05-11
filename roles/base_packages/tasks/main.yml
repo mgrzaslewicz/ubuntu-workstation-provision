@@ -1,0 +1,16 @@
+- name: Install base apt packages
+  become: true
+  apt:
+    state: present
+    name: '{{ item }}'
+  loop:
+    - baobab # disc analyzer
+    - filezilla
+    - flameshot
+    - gimp
+    - gnome-disk-utility
+    - graphviz # needed for intellij plugin plantUML
+    - keepassxc
+    - translate-shell # for command line language translation
+    - wine
+    - xclip

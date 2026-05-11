@@ -1,0 +1,13 @@
+- name: Find mise binary path
+  shell: command -v mise || echo ~/.local/bin/mise
+  register: mise_path
+  changed_when: false
+- name: Install go with mise
+  shell: "{{ mise_path.stdout }} install go"
+  register: mise_install
+  changed_when: "'installed' in mise_install.stdout or 'installing' in mise_install.stdout"
+- name: Set latest go as global default
+  shell: "{{ mise_path.stdout }} use --global go"
+- name: Allow idiomatic go usage
+  shell: "{{ mise_path.stdout }} settings add idiomatic_version_file_enable_tools go"
+  changed_when: false
