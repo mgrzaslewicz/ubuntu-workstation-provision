@@ -1,0 +1,12 @@
+---
+- name: Install LibreOffice
+  hosts: all
+  gather_facts: False
+  tags: office,libreoffice
+  tasks:
+    - name: Install LibreOffice flatpak
+      community.general.flatpak:
+        name: org.libreoffice.LibreOffice
+        state: present
+        remote: flathub
+        method: user
