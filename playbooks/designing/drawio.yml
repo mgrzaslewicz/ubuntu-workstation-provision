@@ -1,0 +1,12 @@
+---
+- name: Install drawio
+  hosts: all
+  gather_facts: False
+  tags: graphical,design,drawio
+  tasks:
+    - name: Install drawio flatpak
+      community.general.flatpak:
+        name: com.jgraph.drawio.desktop
+        state: present
+        remote: flathub
+        method: user
