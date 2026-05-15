@@ -3,6 +3,29 @@
   hosts: all
   gather_facts: False
   tags: docker,docker-registry
+  pre_tasks:
+    - name: Discover mise Python
+      ansible.builtin.raw: |
+        set -e
+        MISE="$(command -v mise || printf '%s\n' "$HOME/.local/bin/mise")"
+        "$MISE" which python
+      register: mise_python_discovery
+      changed_when: false
+    - name: Use mise Python for this play
+      ansible.builtin.set_fact:
+        ansible_python_interpreter: "{{ mise_python_discovery.stdout | trim }}"
+    - name: Ensure pip is available in mise Python
+      ansible.builtin.command:
+        cmd: "{{ ansible_python_interpreter }} -m ensurepip --upgrade"
+      changed_when: false
+    - name: Bootstrap packaging for Ansible pip module in mise Python
+      ansible.builtin.command:
+        cmd: "{{ ansible_python_interpreter }} -m pip install packaging"
+      register: packaging_install_result
+      changed_when: "'Requirement already satisfied' not in packaging_install_result.stdout"
+    - name: Install Python dependencies for Docker Ansible modules into mise Python
+      ansible.builtin.command:
+        cmd: "{{ ansible_python_interpreter }} -m pip install requests docker"
   tasks:
     - name: Start docker registry
       become: true
