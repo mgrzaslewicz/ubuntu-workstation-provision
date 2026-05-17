@@ -1,0 +1,10 @@
+---
+- name: Install podman
+  hosts: all
+  tags: podman
+  tasks:
+    - name: Install podman
+      become: true
+      apt:
+        state: present
+        name: podman

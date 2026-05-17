@@ -62,9 +62,10 @@
 - import_playbook: terminal/tmuxinator.yml
 - import_playbook: terminal/yakuake.yml
 
-- import_playbook: docker/docker.yml
-- import_playbook: docker/docker-registry.yml
-- import_playbook: docker/lazydocker.yml
+- import_playbook: containers/docker.yml
+- import_playbook: containers/docker-registry.yml
+- import_playbook: containers/lazydocker.yml
+- import_playbook: containers/podman.yml
 
 - import_playbook: javascript/npm.yml
 - import_playbook: javascript/yarn.yml
