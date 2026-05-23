@@ -33,6 +33,7 @@
 
 - import_playbook: knowledge/cheat.yml
 - import_playbook: knowledge/logseq.yml
+- import_playbook: knowledge/obsidian.yml
 
 - import_playbook: zsh/zsh.yml
 - import_playbook: zsh/oh-my-zsh.yml

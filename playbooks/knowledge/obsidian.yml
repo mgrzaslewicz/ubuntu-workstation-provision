@@ -1,0 +1,12 @@
+---
+- name: Install logseq
+  hosts: all
+  gather_facts: False
+  tags: graphical,knowledge,obsidian
+  tasks:
+    - name: Install obsidian flatpak
+      community.general.flatpak:
+        name: md.obsidian.Obsidian
+        state: present
+        remote: flathub
+        method: user
