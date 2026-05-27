@@ -2,7 +2,7 @@
 - name: Install yq
   hosts: all
   gather_facts: False
-  tags: yq
+  tags: snap,yq
   tasks:
     - name: Install yq
       become: true

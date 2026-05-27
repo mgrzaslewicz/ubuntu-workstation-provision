@@ -2,7 +2,7 @@
 - name: Install intellij
   hosts: all
   gather_facts: False
-  tags: graphical,ide,intellij
+  tags: snap,graphical,ide,intellij
   tasks:
     - name: Install intellij
       become: true

@@ -2,7 +2,7 @@
 - name: Install chezmoi for managing dotfiles
   hosts: all
   gather_facts: False
-  tags: dotfiles,chezmoi
+  tags: snap,dotfiles,chezmoi
   tasks:
     - name: Install chezmoi
       become: true

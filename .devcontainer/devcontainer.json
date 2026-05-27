@@ -9,5 +9,5 @@
     "updateRemoteUserUID": false,
     "workspaceFolder": "/workspaces/ubuntu-workstation-provision",
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/ubuntu-workstation-provision,type=bind,consistency=cached",
-    "postCreateCommand": "./provision.sh"
+    "postCreateCommand": "SKIP_TAGS=snap ./provision.sh"
 }

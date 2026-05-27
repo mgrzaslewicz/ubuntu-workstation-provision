@@ -2,7 +2,7 @@
 - name: Install zoom
   hosts: all
   gather_facts: False
-  tags: graphical,communicator,zoom
+  tags: snap,graphical,communicator,zoom
   tasks:
     - name: Install zoom snap
       become: true

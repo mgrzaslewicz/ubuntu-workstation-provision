@@ -2,7 +2,7 @@
 - name: Install signal
   hosts: all
   gather_facts: False
-  tags: graphical,communicator,signal
+  tags: snap,graphical,communicator,signal
   tasks:
     - name: Install signal
       become: true

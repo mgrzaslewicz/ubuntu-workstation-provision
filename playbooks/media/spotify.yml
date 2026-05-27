@@ -2,7 +2,7 @@
 - name: Install spotify
   hosts: all
   gather_facts: False
-  tags: graphical,media,spotify
+  tags: snap,graphical,media,spotify
   tasks:
     - name: Install spotify
       become: true

@@ -2,7 +2,7 @@
 - name: Install postman
   hosts: all
   gather_facts: False
-  tags: graphical,postman
+  tags: snap,graphical,postman
   tasks:
     - name: Install postman
       become: true
