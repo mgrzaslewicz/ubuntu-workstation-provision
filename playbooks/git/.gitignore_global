@@ -1,7 +1,0 @@
-*.iml
-.idea/
-*.hprof
-.DS_Store
-.vscode
-composer.lock
-packages.lock
