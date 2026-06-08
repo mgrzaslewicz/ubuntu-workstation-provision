@@ -52,7 +52,7 @@ ANSIBLE_STATUS="${PIPESTATUS[0]}"
 printf '\033[33mLog: %s\033[0m\n' "${LOG_PATH}"
 
 if [[ $ANSIBLE_STATUS -ne 0 ]]; then
-  less +G "${LOG_PATH}"
+  vi +$ "${LOG_PATH}"
 fi
 
 exit "${ANSIBLE_STATUS}"
