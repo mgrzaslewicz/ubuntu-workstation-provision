@@ -1,0 +1,49 @@
+---
+- name: Install muCommander
+  hosts: all
+  gather_facts: False
+  tags: file-manager,mucommander
+  tasks:
+    - name: Download latest release metadata
+      uri:
+        timeout: 30
+        url: https://api.github.com/repos/mucommander/mucommander/releases/latest
+        return_content: yes
+      register: mucommander_latest_version_metadata
+      until: mucommander_latest_version_metadata is success
+      retries: 3
+      delay: 5
+      changed_when: false
+    - name: Parse latest version tag
+      set_fact:
+        mucommander_latest_version: "{{ mucommander_latest_version_metadata.json.tag_name }}"
+    - name: Parse version for filename
+      set_fact:
+        mucommander_version_for_filename: "{{ mucommander_latest_version | regex_replace('-.*', '') }}"
+    - name: Get installed muCommander version
+      shell: dpkg-query -W -f='${Version}' mucommander 2>/dev/null || echo "0.0.0"
+      register: mucommander_installed_version
+      changed_when: false
+      failed_when: false
+    - name: Download muCommander {{ mucommander_latest_version }}
+      get_url:
+        url: "https://github.com/mucommander/mucommander/releases/download/{{ mucommander_latest_version }}/mucommander_{{ mucommander_version_for_filename }}_x86_64.deb"
+        dest: "/tmp/mucommander_{{ mucommander_version_for_filename }}_x86_64.deb"
+        timeout: 30
+      register: download
+      until: download is success
+      retries: 3
+      delay: 5
+      changed_when: false
+      when: mucommander_installed_version.stdout != mucommander_version_for_filename
+    - name: Install muCommander
+      become: true
+      apt:
+        deb: "/tmp/mucommander_{{ mucommander_version_for_filename }}_x86_64.deb"
+        state: present
+      when: mucommander_installed_version.stdout != mucommander_version_for_filename
+    - name: Remove muCommander deb package
+      file:
+        path: "/tmp/mucommander_{{ mucommander_version_for_filename }}_x86_64.deb"
+        state: absent
+      when: mucommander_installed_version.stdout != mucommander_version_for_filename
