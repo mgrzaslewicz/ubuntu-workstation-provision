@@ -1,5 +1,5 @@
 ---
-- name: Install logseq
+- name: Install obsidian
   hosts: all
   gather_facts: False
   tags: graphical,knowledge,obsidian
