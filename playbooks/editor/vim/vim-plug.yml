@@ -2,7 +2,7 @@
 - name: Install vim-plug to manage vim plugins
   hosts: all
   gather_facts: False
-  tags: editor,vim
+  tags: editor,vim,nvim
   tasks:
     - name: Create vim autoload directory
       file:
@@ -27,7 +27,7 @@
         dest: ~/.vim/autoload/plug.vim
         mode: 0755
     - name: Install vim plugins
-      shell: vim +'PlugInstall --sync' +qall
+      shell: nvim +'PlugInstall --sync' +qall
       args:
         executable: /bin/bash
       register: vim_plug_install

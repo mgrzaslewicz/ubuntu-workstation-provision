@@ -6,10 +6,9 @@
   tasks:
     - name: Install neovim
       become: true
-      snap:
+      community.general.snap:
         name: nvim
-        classic: yes
-        state: present
+        classic: true
     - name: Make sure nvim config directory exists
       file:
         path: "~/.config/nvim"
