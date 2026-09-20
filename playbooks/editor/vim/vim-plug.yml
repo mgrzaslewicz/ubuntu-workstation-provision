@@ -2,7 +2,7 @@
 - name: Install vim-plug to manage vim plugins
   hosts: all
   gather_facts: False
-  tags: editor,vim,nvim
+  tags: editor,nvim
   tasks:
     - name: Create vim autoload directory
       file:
@@ -25,6 +25,16 @@
       copy:
         src: /tmp/plug.vim
         dest: ~/.vim/autoload/plug.vim
+        mode: 0755
+    - name: Create nvim autoload directory
+      file:
+        path: ~/.local/share/nvim/site/autoload
+        state: directory
+        mode: 0755
+    - name: Copy vim-plug install script to nvim autoload dir
+      copy:
+        src: /tmp/plug.vim
+        dest: ~/.local/share/nvim/site/autoload/plug.vim
         mode: 0755
     - name: Install vim plugins
       shell: nvim +'PlugInstall --sync' +qall
