@@ -1,5 +1,5 @@
 ---
-- name: Install rustup
+- name: Install rustup and binstall
   hosts: all
   tags: rust
   gather_facts: False
@@ -19,3 +19,9 @@
     - name: Install rustup
       shell: /tmp/rustup-init -y
       changed_when: false
+    - name: Install binstall
+      # confirm interactive ask about sending statistic usage
+      shell: yes | cargo install cargo-binstall --locked
+      register: result
+      # cargo prints status messages (incl. "already installed") to stderr
+      changed_when: "'already installed' not in result.stderr"

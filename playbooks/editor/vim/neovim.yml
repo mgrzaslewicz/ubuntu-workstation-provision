@@ -15,4 +15,8 @@
         state: directory
         mode: 0755
         access_time: preserve
-        modification_time: preserve
+    - name: Install treesitter-cli for source syntax
+      shell: cargo binstall --no-confirm tree-sitter-cli
+      register: result
+      # binstall logs status messages (incl. "already installed") to stderr
+      changed_when: "'already installed' not in result.stdout + result.stderr"
