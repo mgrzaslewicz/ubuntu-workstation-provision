@@ -4,6 +4,10 @@
   gather_facts: False
   tags: editor,nvim
   tasks:
+    - name: Find mise binary path
+      shell: command -v mise || echo ~/.local/bin/mise
+      register: mise_path
+      changed_when: false
     - name: Create vim autoload directory
       file:
         path: ~/.vim/autoload
@@ -37,7 +41,7 @@
         dest: ~/.local/share/nvim/site/autoload/plug.vim
         mode: 0755
     - name: Install vim plugins
-      shell: nvim +'PlugInstall --sync' +qall
+      shell: "{{ mise_path.stdout }} exec -- nvim +'PlugInstall --sync' +qall"
       args:
         executable: /bin/bash
       register: vim_plug_install

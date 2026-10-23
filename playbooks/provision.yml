@@ -14,8 +14,6 @@
 - import_playbook: designing/drawio.yml
 
 - import_playbook: editor/sublime.yml
-- import_playbook: editor/vim/neovim.yml
-- import_playbook: editor/vim/vim-plug.yml
 
 - import_playbook: file-manager/double-commander.yml
 - import_playbook: file-manager/midnight-commander.yml
@@ -39,6 +37,9 @@
 
 - import_playbook: various/mise.yml
 - import_playbook: various/mise-zsh.yml
+
+- import_playbook: editor/vim/neovim.yml
+- import_playbook: editor/vim/vim-plug.yml
 
 - import_playbook: java/async-profiler.yml
 - import_playbook: java/eclipse-mat.yml

@@ -2,13 +2,24 @@
 - name: Configure nvim
   hosts: all
   gather_facts: False
-  tags: snap,editor,nvim
+  tags: editor,nvim
   tasks:
-    - name: Install neovim
+    - name: Remove neovim snap (replaced by mise)
       become: true
+      tags: snap
       community.general.snap:
         name: nvim
-        classic: true
+        state: absent
+    - name: Find mise binary path
+      shell: command -v mise || echo ~/.local/bin/mise
+      register: mise_path
+      changed_when: false
+    - name: Install latest neovim with mise
+      shell: "{{ mise_path.stdout }} install neovim@latest"
+      register: mise_install
+      changed_when: "'installed' in mise_install.stdout or 'installing' in mise_install.stdout"
+    - name: Set latest neovim as global default
+      shell: "{{ mise_path.stdout }} use --global neovim@latest"
     - name: Make sure nvim config directory exists
       file:
         path: "~/.config/nvim"
