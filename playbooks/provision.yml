@@ -38,6 +38,8 @@
 - import_playbook: various/mise.yml
 - import_playbook: various/mise-zsh.yml
 
+- import_playbook: rust/rustup.yml
+
 - import_playbook: editor/vim/neovim.yml
 - import_playbook: editor/vim/vim-plug.yml
 
@@ -75,8 +77,6 @@
 - import_playbook: browser/librewolf.yml
 - import_playbook: browser/mullvad.yml
 - import_playbook: browser/tor.yml
-
-- import_playbook: rust/rustup.yml
 
 - import_playbook: various/bat.yml
 - import_playbook: various/broot.yml

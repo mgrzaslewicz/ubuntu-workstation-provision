@@ -4,12 +4,6 @@
   gather_facts: False
   tags: editor,nvim
   tasks:
-    - name: Remove neovim snap (replaced by mise)
-      become: true
-      tags: snap
-      community.general.snap:
-        name: nvim
-        state: absent
     - name: Find mise binary path
       shell: command -v mise || echo ~/.local/bin/mise
       register: mise_path
