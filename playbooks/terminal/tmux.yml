@@ -13,3 +13,8 @@
         repo: 'https://github.com/tmux-plugins/tpm'
         dest: "~/.tmux/plugins/tpm"
         version: master
+    - name: Install workmux
+      shell: cargo binstall --no-confirm workmux
+      register: result
+      # binstall logs status messages (incl. "already installed") to stderr
+      changed_when: "'already installed' not in result.stdout + result.stderr"
