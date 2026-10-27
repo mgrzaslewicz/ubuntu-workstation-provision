@@ -1,0 +1,40 @@
+---
+- name: Install JetBrains Mono Nerd Font for current user
+  hosts: all
+  gather_facts: False
+  tags: fonts,graphical,nerdfonts
+  vars:
+    nerdfont_dir: ~/.local/share/fonts
+    nerdfont_file: JetBrainsMonoNLNerdFontMono-Regular.ttf
+  tasks:
+    - name: Check if {{ nerdfont_file }} is installed
+      stat:
+        path: "{{ nerdfont_dir }}/{{ nerdfont_file }}"
+      register: nerdfont_check
+    - name: Install {{ nerdfont_file }}
+      when: not nerdfont_check.stat.exists
+      block:
+        - name: Download latest JetBrainsMono Nerd Font release
+          get_url:
+            url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
+            dest: /tmp/JetBrainsMono.zip
+            timeout: 30
+          register: download
+          until: download is success
+          retries: 3
+          delay: 5
+          changed_when: false
+        - name: Create user fonts directory
+          file:
+            path: "{{ nerdfont_dir }}"
+            state: directory
+            mode: 0755
+        - name: Unpack {{ nerdfont_file }}
+          unarchive:
+            src: /tmp/JetBrainsMono.zip
+            dest: "{{ nerdfont_dir }}"
+            include:
+              - "{{ nerdfont_file }}"
+            remote_src: yes
+        - name: Refresh font cache
+          command: fc-cache -f

@@ -103,6 +103,8 @@
 - import_playbook: various/zbar-tools.yml # to scan QR codes from image or camera
 - import_playbook: various/zoxide.yml
 
+- import_playbook: fonts/nerdfonts.yml
+
 - import_playbook: vm/vagrant.yml
 - import_playbook: vm/virtualbox.yml
 
